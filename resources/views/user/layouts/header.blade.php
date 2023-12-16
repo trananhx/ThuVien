@@ -74,7 +74,7 @@
                 @endif
             </ul>
         </div>
-        <ul class="nav header-navbar-rht right-menu">
+        <ul class="nav header-navbar-rht right-menu d-flex align-items-center">
 {{--                <li class="nav-item">--}}
 {{--                    <a class="nav-link header-login white-bg"--}}
 {{--                       onclick="event.preventDefault();--}}
@@ -97,6 +97,14 @@
 {{--                        <a class="nav-link header-login white-bg" href="{{route('user.thayDoiMatKhau')}}">Đổi Mk</a>--}}
 {{--                    </li>--}}
 {{--                @endif--}}
+                @if(Auth::user() != null && Auth::user()->role == 1)
+                    <li class="nav-item">
+                        <a style="cursor: pointer" href="{{route('admin.yeuCau')}}">
+                            <i class="feather-bell" style="font-size: 20px; color: white" data-bs-toggle="tooltip" data-bs-placement="bottom" title=""></i>
+                        </a>
+                    </li>
+                @endif
+
                 <li class="nav-item dropdown" style="height: 50px">
                     <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="avatar avatar-sm border border-2 border-white rounded-circle">

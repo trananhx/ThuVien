@@ -5,6 +5,8 @@
 <!-- Fontawesome CSS -->
 <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
 <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+{{--Feather CSS--}}
+<link rel="stylesheet" href="administration/assets/css/feather.css">
 <!-- Owl carousel CSS -->
 <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
 <!-- Animation CSS -->
@@ -227,5 +229,20 @@
             -o-transform: rotate(360deg);
             transform: rotate(360deg);
         }
+    }
+
+    i.feather-bell{
+        position: relative;
+    }
+
+    i.feather-bell.show::after {
+        content: "";
+        height: 8px;
+        width: 8px;
+        position: absolute;
+        background-color: red;
+        border-radius: 999px;
+        top: -2px;
+        right: 0px;
     }
 </style>

@@ -20015,13 +20015,13 @@ body.home-five {
 		display: block;
 	}
 	.navbar-header {
-		width: 100%;
+		/*width: 100%;*/
 	}
 	#mobile_btn {
 		left: 0;
 		margin-right: 0;
 		padding: 0 15px;
-		position: absolute;
+		/*position: absolute;*/
 		z-index: 99;
 	}
 	.navbar-brand.logo {

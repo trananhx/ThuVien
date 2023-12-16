@@ -13,7 +13,34 @@
 <!-- Animation JS -->
 <script src="assets/js/aos.js"></script>
 
-<!-- Custom JS -->
+@if(Auth::user() != null && Auth::user()->role == 1)
+    {{--Lay yeu cau chua xem--}}
+    <script src="administration/assets/js/kiem-tra-yeu-cau.js"></script>
+    <script>
+        const checkDanhSachYeuCauBackground = () => {
+            fetch('/admin/check-danh-sach-yeu-cau', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ @csrf_token() }}'
+                },
+            }).then(res => res.json())
+                .then(response => {
+                    if (response) {
+                        localStorage.setItem('thongBaoChuaXem', response.data);
+                        window.dispatchEvent( new Event('storage'));
+                    }
+                })
+                .catch(err => console.log(err));
+        }
+        checkDanhSachYeuCauBackground();
+        setInterval(() => {
+            checkDanhSachYeuCauBackground();
+        }, 20000)
+    </script>
+@endif
+
+    <!-- Custom JS -->
 <script src="assets/js/script.js"></script>
 <script>
 

@@ -3,7 +3,7 @@
     <title>Tài liệu theo môn</title>
 @endsection
 @section("content")
-    <section class="section section-doctor" style="padding-top: 120px; min-height: 400px">
+    <section class="section section-doctor" style="padding-top: 120px; min-height: calc(100vh - 85px - 200px)">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12"><h2>Tài liệu cho môn học: {{$mon_hoc->ten_mon}}</h2></div>

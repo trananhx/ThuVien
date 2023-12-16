@@ -53,7 +53,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a style="cursor: pointer">
+            <a style="cursor: pointer" href="{{route('admin.yeuCau')}}">
                 <i class="feather-bell" data-bs-toggle="tooltip" data-bs-placement="bottom" title=""></i>
             </a>
         </li>
