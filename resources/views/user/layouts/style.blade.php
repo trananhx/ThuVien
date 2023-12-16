@@ -88,8 +88,9 @@
         border-top-right-radius: 1000px;
     }
     .main-nav li > ul{
-        height: 60vh;
-        overflow: scroll;
+        max-height: 60vh;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .hetHan {
