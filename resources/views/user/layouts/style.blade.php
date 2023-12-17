@@ -15,9 +15,10 @@
 <link rel="stylesheet" href="assets/css/style.css">
 
 <style>
-    *{
-        font-family:'Source Sans Pro', sans-serif
+    * {
+        font-family: 'Source Sans Pro', sans-serif
     }
+
     .text-right {
         text-align: right;
     }
@@ -58,20 +59,25 @@
     .bar-icon span {
         background-color: red !important;
     }
-    .book-btn{
+
+    .book-btn {
         background-color: rgb(43, 108, 203);
     }
-    .blog-info a{
+
+    .blog-info a {
         color: white;
     }
-    a{
+
+    a {
         position: relative;
     }
-    .titleCustom{
+
+    .titleCustom {
         border-bottom: 2px double red;
 
     }
-    .titleCustom h2{
+
+    .titleCustom h2 {
         display: inline;
         width: 150px;
         color: white;
@@ -87,7 +93,8 @@
         -moz-border-radius-topright: 100px;
         border-top-right-radius: 1000px;
     }
-    .main-nav li > ul{
+
+    .main-nav li>ul {
         max-height: 60vh;
         overflow-y: auto;
         overflow-x: hidden;
@@ -103,7 +110,8 @@
         opacity: 0.6;
         cursor: not-allowed;
     }
-    .hetHan:hover{
+
+    .hetHan:hover {
         scale: 1.1;
     }
 
@@ -172,6 +180,7 @@
             -o-transform: rotate(0deg);
             transform: rotate(0deg);
         }
+
         100% {
             -webkit-transform: rotate(360deg);
             -moz-transform: rotate(360deg);
@@ -189,6 +198,7 @@
             -o-transform: rotate(0deg);
             transform: rotate(0deg);
         }
+
         100% {
             -webkit-transform: rotate(360deg);
             -moz-transform: rotate(360deg);
@@ -206,6 +216,7 @@
             -o-transform: rotate(0deg);
             transform: rotate(0deg);
         }
+
         100% {
             -webkit-transform: rotate(360deg);
             -moz-transform: rotate(360deg);
@@ -223,6 +234,7 @@
             -o-transform: rotate(0deg);
             transform: rotate(0deg);
         }
+
         100% {
             -webkit-transform: rotate(360deg);
             -moz-transform: rotate(360deg);
@@ -232,7 +244,7 @@
         }
     }
 
-    i.feather-bell{
+    i.feather-bell {
         position: relative;
     }
 
@@ -245,5 +257,43 @@
         border-radius: 999px;
         top: -2px;
         right: 0px;
+    }
+
+    .my-dropdown {
+        display: flex;
+        transition: all .35s ease;
+        visibility: hidden;
+        opacity: 0;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    .watch-more {
+        position: unset !important;
+    }
+
+    .watch-more:hover>.my-dropdown {
+        /* display: flex; */
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .my-sub-menu {
+        display: block;
+        transition: all .35s ease;
+        visibility: hidden;
+        opacity: 0;
+        top: 200%;
+        min-width: 200px;
+        max-height: 60vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background-color: #fff;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        padding-left: 0;
+    }
+
+    .my-hover-button:hover>.my-sub-menu {
+        visibility: visible;
+        opacity: 1;
     }
 </style>

@@ -214,7 +214,7 @@ export default {
                 response => {
                     if (response.data.rc == 0) {
                         this.list_data = response.data.data;
-                        this.paging.total = response.data.total
+                        this.paging.total = response.data.total;
                     } else {
                         this.list_data = [];
                         this.paging.total = 0;
