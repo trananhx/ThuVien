@@ -25,9 +25,9 @@
             @php
             $leftPart = [];
             $mobilePart = $list_ctdt;
-            if (count($list_ctdt) > 6){
-            $leftPart = $list_ctdt->slice(5);
-            $list_ctdt = $list_ctdt->slice(0, 5);
+            if (count($list_ctdt) > 7){
+            $leftPart = $list_ctdt->slice(6);
+            $list_ctdt = $list_ctdt->slice(0, 6);
             }
             @endphp
             <ul class="main-nav white-font position-relative d-none d-lg-flex">

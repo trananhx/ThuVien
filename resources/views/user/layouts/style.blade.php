@@ -295,5 +295,6 @@
     .my-hover-button:hover>.my-sub-menu {
         visibility: visible;
         opacity: 1;
+        z-index: 999;
     }
 </style>
