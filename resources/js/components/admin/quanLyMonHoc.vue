@@ -44,7 +44,7 @@
                             <tbody v-if="list_data&&list_data.length">
                             <tr v-for="(item,index) in list_data" :key="index">
                                 <td class="text-center">{{(paging.currentPage - 1) * paging.limit + index + 1}}</td>
-                                <td><p>{{ getTenChuongTrinhDaoTao(item.ctdt_id) }}</p>
+                                <td><p>{{ getTenChuongTrinhDaoTao(item.chuong_trinh_dao_tao) }}</p>
                                 </td>
                                 <td><p>{{ item.ten_mon }}</p></td>
                                 <td><p>{{ item.ma_mon }}</p></td>
@@ -229,17 +229,18 @@ export default {
             })
         },
 
-        getTenChuongTrinhDaoTao(arr) {
-            arr = arr.split(',').sort()
-            let str = '';
-            for (let i = 0; i < arr.length; i++) {
-                for (let j = 0; j < this.list_chuong_trinh_dao_tao.length; j++) {
-                    if (arr[i] == this.list_chuong_trinh_dao_tao[j].id) {
-                        str += this.list_chuong_trinh_dao_tao[j].ten + '; '
-                    }
-                }
-            }
-            return str;
+        getTenChuongTrinhDaoTao(ctdt) {
+            // arr = arr.split(',').sort()
+            // let str = '';
+            // for (let i = 0; i < arr.length; i++) {
+            //     for (let j = 0; j < this.list_chuong_trinh_dao_tao.length; j++) {
+            //         if (arr[i] == this.list_chuong_trinh_dao_tao[j].id) {
+            //             str += this.list_chuong_trinh_dao_tao[j].ten + '; '
+            //         }
+            //     }
+            // }
+            // return str;
+            return ctdt.ten;
         },
         confirmDel(item) {
             this.$confirm('Xác nhận xoá thông tin ?', 'Thông báo', {
