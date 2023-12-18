@@ -51,7 +51,7 @@
 
                 @if(Auth::user() != null && Auth::user()->role==0)
                 <li class="nav-item">
-                    <a href="{{route('user.yeuCau')}}">Phản hồi</a>
+                    <a href="{{route('user.yeuCau')}}">Liên hệ</a>
                 </li>
                 @endif
 
@@ -112,7 +112,7 @@
                 @if(Auth::user()->role==1)
                 @else
                 <li class="nav-item">
-                    <a href="{{route('user.yeuCau')}}">Phản hồi</a>
+                    <a href="{{route('user.yeuCau')}}">Liên hệ</a>
                 </li>
                 @endif
 

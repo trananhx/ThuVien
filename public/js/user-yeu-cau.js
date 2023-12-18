@@ -3989,6 +3989,21 @@ var render = function render() {
     staticClass: "w-100 mt-2",
     on: {
       click: function click($event) {
+        return _vm.changeTab("gia-han");
+      }
+    }
+  }, [_c("div", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("div", {
+    staticClass: "fw-lighter"
+  }, [_vm._v("\n                                Yêu cầu gia hạn online\n                            ")]), _vm._v(" "), _c("div", [_c("el-icon", {
+    attrs: {
+      name: "el-icon-info"
+    }
+  })], 1)])])], 1), _vm._v(" "), _c("div", [_c("el-button", {
+    staticClass: "w-100 mt-2",
+    on: {
+      click: function click($event) {
         return _vm.changeTab("tham-do");
       }
     }
@@ -4005,9 +4020,9 @@ var render = function render() {
       span: 18,
       xs: 24
     }
-  }, [_vm.tab === "gop-y" || _vm.tab === "bo-sung" ? _c("div", [_c("div", {
+  }, [_vm.tab === "gop-y" || _vm.tab === "bo-sung" || _vm.tab === "gia-han" ? _c("div", [_c("div", {
     staticClass: "px-4 py-2 mb-4 fw-bold bg-light fs-5"
-  }, [_vm._v("\n                    " + _vm._s(_vm.tab === "gop-y" ? "Góp ý" : "") + "\n                    " + _vm._s(_vm.tab === "bo-sung" ? "Đề nghị bổ sung tài liệu" : "") + "\n                ")]), _vm._v(" "), _c("el-row", {
+  }, [_vm._v("\n                    " + _vm._s(_vm.tab === "gop-y" ? "Góp ý" : "") + "\n                    " + _vm._s(_vm.tab === "bo-sung" ? "Đề nghị bổ sung tài liệu" : "") + "\n                    " + _vm._s(_vm.tab === "gia-han" ? "Yêu cầu gia hạn online" : "") + "\n                ")]), _vm._v(" "), _c("el-row", {
     attrs: {
       gutter: 24
     }
@@ -4015,9 +4030,11 @@ var render = function render() {
     attrs: {
       span: 24
     }
-  }, [_c("p", {
+  }, [_vm.tab === "bo-sung" || _vm.tab === "gop-y" ? _c("p", {
     staticClass: "text-muted"
-  }, [_vm._v("\n                            Bạn có những thắc mắc hoặc góp ý. Hãy điền các thông tin vào biểu mẫu và gửi cho thư viện, chúng tôi sẽ trả lòi cho bạn trong thời gian sớm nhất\n                        ")])]), _vm._v(" "), _c("el-col", {
+  }, [_vm._v("\n                            Bạn có những thắc mắc hoặc góp ý. Hãy điền các thông tin vào biểu mẫu và gửi cho thư viện, chúng tôi sẽ trả lời cho bạn trong thời gian sớm nhất\n                        ")]) : _vm._e(), _vm._v(" "), _vm.tab === "gia-han" ? _c("p", {
+    staticClass: "text-muted"
+  }, [_vm._v("\n                            Bạn muốn gia hạn thông tin sách đã mượn. Hãy điền các thông tin vào biểu mẫu và gửi cho thư viện, chúng tôi sẽ trả lời cho bạn trong thời gian sớm nhất\n                        ")]) : _vm._e()]), _vm._v(" "), _c("el-col", {
     staticClass: "text-left",
     attrs: {
       span: 24

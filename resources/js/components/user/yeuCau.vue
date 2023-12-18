@@ -32,6 +32,18 @@
                     </el-button>
                 </div>
                 <div>
+                    <el-button class="w-100 mt-2" @click="changeTab('gia-han')">
+                        <div class="d-flex justify-content-between">
+                            <div class="fw-lighter">
+                                Yêu cầu gia hạn online
+                            </div>
+                            <div>
+                                <el-icon name="el-icon-info"/>
+                            </div>
+                        </div>
+                    </el-button>
+                </div>
+                <div>
                     <el-button class="w-100 mt-2" @click="changeTab('tham-do')">
                         <div class="d-flex justify-content-between">
                             <div class="fw-lighter">
@@ -47,15 +59,19 @@
         </el-col>
 
         <el-col :span="18" :xs="24" class="">
-            <div v-if="tab === 'gop-y' || tab === 'bo-sung'">
+            <div v-if="tab === 'gop-y' || tab === 'bo-sung' || tab === 'gia-han'">
                 <div class="px-4 py-2 mb-4 fw-bold bg-light fs-5">
                     {{ tab === 'gop-y' ? 'Góp ý' : ''}}
                     {{ tab === 'bo-sung' ? 'Đề nghị bổ sung tài liệu' : ''}}
+                    {{ tab === 'gia-han' ? 'Yêu cầu gia hạn online' : ''}}
                 </div>
                 <el-row :gutter="24">
                     <el-col :span="24">
-                        <p class="text-muted">
-                            Bạn có những thắc mắc hoặc góp ý. Hãy điền các thông tin vào biểu mẫu và gửi cho thư viện, chúng tôi sẽ trả lòi cho bạn trong thời gian sớm nhất
+                        <p v-if="tab === 'bo-sung' || tab === 'gop-y'" class="text-muted">
+                            Bạn có những thắc mắc hoặc góp ý. Hãy điền các thông tin vào biểu mẫu và gửi cho thư viện, chúng tôi sẽ trả lời cho bạn trong thời gian sớm nhất
+                        </p>
+                        <p v-if="tab === 'gia-han'" class="text-muted">
+                            Bạn muốn gia hạn thông tin sách đã mượn. Hãy điền các thông tin vào biểu mẫu và gửi cho thư viện, chúng tôi sẽ trả lời cho bạn trong thời gian sớm nhất
                         </p>
                     </el-col>
                     <el-col :span="24" class="text-left">

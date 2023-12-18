@@ -6,7 +6,7 @@
     <section class="section section-doctor" style="padding-top: 120px; min-height: calc(100vh - 85px - 200px)">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12"><h2>Tài liệu cho môn học: {{$mon_hoc->ten_mon}}</h2></div>
+                <div class="col-12"><h2>Tài liệu cho học phần: {{$mon_hoc->ten_mon}}</h2></div>
                 @if(isset($list_tai_lieu)&&count($list_tai_lieu))
                     @foreach($list_tai_lieu as $taiLieu)
                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 aos mt-3" data-aos="fade-up">
