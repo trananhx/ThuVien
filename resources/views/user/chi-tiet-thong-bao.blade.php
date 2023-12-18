@@ -1,6 +1,12 @@
 @extends("user.layouts.app")
 @section("title")
     <title>{{$thong_bao->tieu_de}}</title>
+    <style>
+        .editor-content img{
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 @endsection
 @section("content")
     <div class="content" style="padding-top: 120px">
@@ -11,7 +17,7 @@
                         <div class="card-header">
                             <h5 class="card-title"><span style="color:slategray">[{{$thong_bao->created_at}}]</span><br><b>{{$thong_bao->tieu_de}} </b></h5>
                         </div>
-                        <div class="card-body" style="text-align: left">
+                        <div class="card-body editor-content" style="text-align: left">
                             <div>{!! $thong_bao->noi_dung !!}</div>
                         </div>
                         <div class="text-center">

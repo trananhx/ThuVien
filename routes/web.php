@@ -18,22 +18,25 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+Auth::routes();
 Route::get('/', 'UserController@getHome')->name('user.home');
 Route::get('/tai-lieu-theo-mon', 'UserController@getTaiLieuTheoMon')->name('user.taiLieuTheoMon');
 Route::get('/chi-tiet', 'UserController@getChiTietTaiLieu')->name('user.chiTietTaiLieu');
 Route::get('/tim-kiem', 'UserController@getTimKiemTaiLieu')->name('user.timKiemTaiLieu');
 Route::get('/thong-bao', 'UserController@getThongBao')->name('user.thongBao');
-Route::get('/yeu-cau', 'UserController@getYeuCau')->name('user.yeuCau');
-Route::get('/thay-doi-mat-khau', 'UserController@getThayDoiMatKhau')->name('user.thayDoiMatKhau');
 Route::get('/chi-tiet-thong-bao', 'UserController@chiTietThongBao')->name('user.chiTietThongBao');
 Route::get('/chi-tiet-yeu-cau', 'UserController@chiTietYeuCau')->name('user.chiTietYeuCau');
-Route::get('/xem-tham-do', 'UserController@getThongTinVote');
-Route::post('/gui-tham-do', 'UserController@thucHienVote');
-Route::post('/doi-mat-khau', 'UserController@doiMatKhau');
-Route::post('/them-yeu-cau', 'UserController@themYeuCau');
-
-Auth::routes();
 Route::post('/login', 'UserController@dangNhap')->name('login');
+
+Route::group(['middleware' => ['isUser']], function(){
+    Route::get('/thay-doi-mat-khau', 'UserController@getThayDoiMatKhau')->name('user.thayDoiMatKhau');
+    Route::get('/yeu-cau', 'UserController@getYeuCau')->name('user.yeuCau');
+    Route::get('/xem-tham-do', 'UserController@getThongTinVote');
+    Route::post('/doi-mat-khau', 'UserController@doiMatKhau');
+    Route::post('/gui-tham-do', 'UserController@thucHienVote');
+    Route::post('/them-yeu-cau', 'UserController@themYeuCau');
+    Route::post('/them-yeu-cau-gia-han', 'UserController@themYeuCauGiaHan');
+});
 
 Route::group(['prefix' => 'admin','middleware' => ['isAdmin']], function(){
 //    Route::get('/', 'AdminController@getHome')->name('admin.home');

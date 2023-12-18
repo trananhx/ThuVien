@@ -59,24 +59,20 @@
         </el-col>
 
         <el-col :span="18" :xs="24" class="">
-            <div v-if="tab === 'gop-y' || tab === 'bo-sung' || tab === 'gia-han'">
+            <div v-if="tab === 'gop-y' || tab === 'bo-sung'">
                 <div class="px-4 py-2 mb-4 fw-bold bg-light fs-5">
                     {{ tab === 'gop-y' ? 'Góp ý' : ''}}
                     {{ tab === 'bo-sung' ? 'Đề nghị bổ sung tài liệu' : ''}}
-                    {{ tab === 'gia-han' ? 'Yêu cầu gia hạn online' : ''}}
                 </div>
                 <el-row :gutter="24">
                     <el-col :span="24">
                         <p v-if="tab === 'bo-sung' || tab === 'gop-y'" class="text-muted">
                             Bạn có những thắc mắc hoặc góp ý. Hãy điền các thông tin vào biểu mẫu và gửi cho thư viện, chúng tôi sẽ trả lời cho bạn trong thời gian sớm nhất
                         </p>
-                        <p v-if="tab === 'gia-han'" class="text-muted">
-                            Bạn muốn gia hạn thông tin sách đã mượn. Hãy điền các thông tin vào biểu mẫu và gửi cho thư viện, chúng tôi sẽ trả lời cho bạn trong thời gian sớm nhất
-                        </p>
                     </el-col>
                     <el-col :span="24" class="text-left">
                         <label>Tiêu đề <span class="required" style="color: red">*</span></label>
-                        <el-input type="text" placeholder="Nhập" clearable v-model="dataYeuCau.tieu_de"></el-input>
+                        <el-input type="text" clearable v-model="dataYeuCau.tieu_de"></el-input>
                     </el-col>
 
                     <el-col :span="24" class="text-left mt-3">
@@ -88,6 +84,32 @@
                     <el-button type="primary" @click="xacNhanThemMoi">Gửi đi</el-button>
                 </div>
             </div>
+
+            <div v-if="tab === 'gia-han'">
+                <div class="px-4 py-2 mb-4 fw-bold bg-light fs-5">
+                    Yêu cầu gia hạn online
+                </div>
+                <el-row :gutter="24">
+                    <el-col :span="24">
+                        <p class="text-muted">
+                            Bạn muốn gia hạn thông tin sách đã mượn. Hãy điền các thông tin vào biểu mẫu và gửi cho thư viện, chúng tôi sẽ trả lời cho bạn trong thời gian sớm nhất
+                        </p>
+                    </el-col>
+                    <el-col :span="24" class="text-left">
+                        <label>Tiêu đề <span class="required" style="color: red">*</span></label>
+                        <el-input type="text" clearable disabled v-model="dataYeuCau.tieu_de"></el-input>
+                    </el-col>
+
+                    <el-col :span="24" class="text-left mt-3">
+                        <label>Tên sách<span class="required" style="color: red;text-align: left">*</span></label>
+                        <el-input v-model="dataYeuCau.noi_dung" clearable />
+                    </el-col>
+                </el-row>
+                <div class="d-flex justify-content-center my-4">
+                    <el-button type="primary" @click="xacNhanThemMoiGiaHan">Gửi đi</el-button>
+                </div>
+            </div>
+
             <div v-if="tab === 'tham-do'">
                 <div class="px-4 py-2 mb-4 fw-bold bg-light fs-5">
                     Thăm dò ý kiến
@@ -176,7 +198,9 @@ export default {
             this.tab = tabName;
             this.dataYeuCau.tieu_de = '';
             this.dataYeuCau.noi_dung = '';
-            console.log(this.dataThamDo);
+            // console.log(this.dataThamDo);
+            if (this.tab === 'gia-han')
+                this.dataYeuCau.tieu_de = 'Yêu cầu gia hạn mượn sách online';
         },
         xacNhanThemMoi()
         {
@@ -207,6 +231,37 @@ export default {
                 }
             ).catch((e) => {})
         },
+
+        xacNhanThemMoiGiaHan()
+        {
+            console.log('Xác nhận gia hạn')
+            if(!this.dataYeuCau.tieu_de || this.dataYeuCau.tieu_de=='' || !this.dataYeuCau.noi_dung || this.dataYeuCau.noi_dung=='')
+            {
+                this.thongBao('error','Vui lòng bổ sung thông tin.')
+                return;
+            }
+            var url = '/them-yeu-cau-gia-han'
+            this.loading.status = true;
+            this.loading.text = 'Loading...'
+            rest_api.post(url, this.dataYeuCau).then(
+                response => {
+                    if (response.data.rc == 0)
+                    {
+                        this.thongBao('success','Thêm yêu cầu thành công')
+                        setTimeout(()=>
+                        {
+                            window.location.reload(true);
+                        },1500)
+                    }
+                    else
+                    {
+                        this.thongBao('error', response.data.rd)
+                    }
+                    this.loading.status = false;
+                }
+            ).catch((e) => {})
+        },
+
         layThongTinThamDo(){
             this.loading.status = true;
             this.loading.text = 'Loading...'

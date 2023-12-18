@@ -3722,7 +3722,8 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(element_ui__WEBPACK_IMPORTED_MODU
       this.tab = tabName;
       this.dataYeuCau.tieu_de = '';
       this.dataYeuCau.noi_dung = '';
-      console.log(this.dataThamDo);
+      // console.log(this.dataThamDo);
+      if (this.tab === 'gia-han') this.dataYeuCau.tieu_de = 'Yêu cầu gia hạn mượn sách online';
     },
     xacNhanThemMoi: function xacNhanThemMoi() {
       var _this = this;
@@ -3746,26 +3747,48 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(element_ui__WEBPACK_IMPORTED_MODU
         _this.loading.status = false;
       })["catch"](function (e) {});
     },
-    layThongTinThamDo: function layThongTinThamDo() {
+    xacNhanThemMoiGiaHan: function xacNhanThemMoiGiaHan() {
       var _this2 = this;
+      console.log('Xác nhận gia hạn');
+      if (!this.dataYeuCau.tieu_de || this.dataYeuCau.tieu_de == '' || !this.dataYeuCau.noi_dung || this.dataYeuCau.noi_dung == '') {
+        this.thongBao('error', 'Vui lòng bổ sung thông tin.');
+        return;
+      }
+      var url = '/them-yeu-cau-gia-han';
+      this.loading.status = true;
+      this.loading.text = 'Loading...';
+      _api_rest_api__WEBPACK_IMPORTED_MODULE_0__["default"].post(url, this.dataYeuCau).then(function (response) {
+        if (response.data.rc == 0) {
+          _this2.thongBao('success', 'Thêm yêu cầu thành công');
+          setTimeout(function () {
+            window.location.reload(true);
+          }, 1500);
+        } else {
+          _this2.thongBao('error', response.data.rd);
+        }
+        _this2.loading.status = false;
+      })["catch"](function (e) {});
+    },
+    layThongTinThamDo: function layThongTinThamDo() {
+      var _this3 = this;
       this.loading.status = true;
       this.loading.text = 'Loading...';
       _api_rest_api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/xem-tham-do', null).then(function (result) {
-        _this2.dataThamDo.content = result.data.question.content;
-        _this2.dataThamDo.questionId = result.data.question.id;
-        _this2.dataThamDo.votes = result.data.votes;
-        _this2.dataThamDo.totalVote = result.data.total_vote;
-        _this2.dataThamDo.userSelect = result.data.user_select;
-        console.log(_this2.dataThamDo);
+        _this3.dataThamDo.content = result.data.question.content;
+        _this3.dataThamDo.questionId = result.data.question.id;
+        _this3.dataThamDo.votes = result.data.votes;
+        _this3.dataThamDo.totalVote = result.data.total_vote;
+        _this3.dataThamDo.userSelect = result.data.user_select;
+        console.log(_this3.dataThamDo);
       })["catch"](function (e) {
         console.log("Error " + e);
       })["finally"](function () {
-        return _this2.loading.status = false;
+        return _this3.loading.status = false;
       });
     },
     guiThamDo: function guiThamDo(id) {
       var _this$dataThamDo$user,
-        _this3 = this;
+        _this4 = this;
       if (id === ((_this$dataThamDo$user = this.dataThamDo.userSelect) === null || _this$dataThamDo$user === void 0 ? void 0 : _this$dataThamDo$user.id)) return;
       this.loading.status = true;
       this.loading.text = 'Loading...';
@@ -3774,12 +3797,12 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(element_ui__WEBPACK_IMPORTED_MODU
         vote_id: id
       }).then(function (result) {
         if (result.data.rc === '0') {
-          _this3.layThongTinThamDo();
+          _this4.layThongTinThamDo();
         }
       })["catch"](function (err) {
         return console.log(err);
       })["finally"](function () {
-        return _this3.loading.status = false;
+        return _this4.loading.status = false;
       });
     },
     handleClose: function handleClose() {
@@ -4020,9 +4043,9 @@ var render = function render() {
       span: 18,
       xs: 24
     }
-  }, [_vm.tab === "gop-y" || _vm.tab === "bo-sung" || _vm.tab === "gia-han" ? _c("div", [_c("div", {
+  }, [_vm.tab === "gop-y" || _vm.tab === "bo-sung" ? _c("div", [_c("div", {
     staticClass: "px-4 py-2 mb-4 fw-bold bg-light fs-5"
-  }, [_vm._v("\n                    " + _vm._s(_vm.tab === "gop-y" ? "Góp ý" : "") + "\n                    " + _vm._s(_vm.tab === "bo-sung" ? "Đề nghị bổ sung tài liệu" : "") + "\n                    " + _vm._s(_vm.tab === "gia-han" ? "Yêu cầu gia hạn online" : "") + "\n                ")]), _vm._v(" "), _c("el-row", {
+  }, [_vm._v("\n                    " + _vm._s(_vm.tab === "gop-y" ? "Góp ý" : "") + "\n                    " + _vm._s(_vm.tab === "bo-sung" ? "Đề nghị bổ sung tài liệu" : "") + "\n                ")]), _vm._v(" "), _c("el-row", {
     attrs: {
       gutter: 24
     }
@@ -4032,9 +4055,7 @@ var render = function render() {
     }
   }, [_vm.tab === "bo-sung" || _vm.tab === "gop-y" ? _c("p", {
     staticClass: "text-muted"
-  }, [_vm._v("\n                            Bạn có những thắc mắc hoặc góp ý. Hãy điền các thông tin vào biểu mẫu và gửi cho thư viện, chúng tôi sẽ trả lời cho bạn trong thời gian sớm nhất\n                        ")]) : _vm._e(), _vm._v(" "), _vm.tab === "gia-han" ? _c("p", {
-    staticClass: "text-muted"
-  }, [_vm._v("\n                            Bạn muốn gia hạn thông tin sách đã mượn. Hãy điền các thông tin vào biểu mẫu và gửi cho thư viện, chúng tôi sẽ trả lời cho bạn trong thời gian sớm nhất\n                        ")]) : _vm._e()]), _vm._v(" "), _c("el-col", {
+  }, [_vm._v("\n                            Bạn có những thắc mắc hoặc góp ý. Hãy điền các thông tin vào biểu mẫu và gửi cho thư viện, chúng tôi sẽ trả lời cho bạn trong thời gian sớm nhất\n                        ")]) : _vm._e()]), _vm._v(" "), _c("el-col", {
     staticClass: "text-left",
     attrs: {
       span: 24
@@ -4047,7 +4068,6 @@ var render = function render() {
   }, [_vm._v("*")])]), _vm._v(" "), _c("el-input", {
     attrs: {
       type: "text",
-      placeholder: "Nhập",
       clearable: ""
     },
     model: {
@@ -4084,6 +4104,72 @@ var render = function render() {
     },
     on: {
       click: _vm.xacNhanThemMoi
+    }
+  }, [_vm._v("Gửi đi")])], 1)], 1) : _vm._e(), _vm._v(" "), _vm.tab === "gia-han" ? _c("div", [_c("div", {
+    staticClass: "px-4 py-2 mb-4 fw-bold bg-light fs-5"
+  }, [_vm._v("\n                    Yêu cầu gia hạn online\n                ")]), _vm._v(" "), _c("el-row", {
+    attrs: {
+      gutter: 24
+    }
+  }, [_c("el-col", {
+    attrs: {
+      span: 24
+    }
+  }, [_c("p", {
+    staticClass: "text-muted"
+  }, [_vm._v("\n                            Bạn muốn gia hạn thông tin sách đã mượn. Hãy điền các thông tin vào biểu mẫu và gửi cho thư viện, chúng tôi sẽ trả lời cho bạn trong thời gian sớm nhất\n                        ")])]), _vm._v(" "), _c("el-col", {
+    staticClass: "text-left",
+    attrs: {
+      span: 24
+    }
+  }, [_c("label", [_vm._v("Tiêu đề "), _c("span", {
+    staticClass: "required",
+    staticStyle: {
+      color: "red"
+    }
+  }, [_vm._v("*")])]), _vm._v(" "), _c("el-input", {
+    attrs: {
+      type: "text",
+      clearable: "",
+      disabled: ""
+    },
+    model: {
+      value: _vm.dataYeuCau.tieu_de,
+      callback: function callback($$v) {
+        _vm.$set(_vm.dataYeuCau, "tieu_de", $$v);
+      },
+      expression: "dataYeuCau.tieu_de"
+    }
+  })], 1), _vm._v(" "), _c("el-col", {
+    staticClass: "text-left mt-3",
+    attrs: {
+      span: 24
+    }
+  }, [_c("label", [_vm._v("Tên sách"), _c("span", {
+    staticClass: "required",
+    staticStyle: {
+      color: "red",
+      "text-align": "left"
+    }
+  }, [_vm._v("*")])]), _vm._v(" "), _c("el-input", {
+    attrs: {
+      clearable: ""
+    },
+    model: {
+      value: _vm.dataYeuCau.noi_dung,
+      callback: function callback($$v) {
+        _vm.$set(_vm.dataYeuCau, "noi_dung", $$v);
+      },
+      expression: "dataYeuCau.noi_dung"
+    }
+  })], 1)], 1), _vm._v(" "), _c("div", {
+    staticClass: "d-flex justify-content-center my-4"
+  }, [_c("el-button", {
+    attrs: {
+      type: "primary"
+    },
+    on: {
+      click: _vm.xacNhanThemMoiGiaHan
     }
   }, [_vm._v("Gửi đi")])], 1)], 1) : _vm._e(), _vm._v(" "), _vm.tab === "tham-do" ? _c("div", [_c("div", {
     staticClass: "px-4 py-2 mb-4 fw-bold bg-light fs-5"

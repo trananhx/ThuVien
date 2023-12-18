@@ -143,6 +143,23 @@ class UserController extends Controller
         ];
         return json_encode($res);
     }
+
+    public function themYeuCauGiaHan(Request $request){
+        $req = $request->all();
+        $noi_dung = "Tôi cần gia hạn mượn sách ".$req['noi_dung'].", mssv: ".$request->user()->ma_sv;
+        $dataCreat = YeuCau::create([
+            'tieu_de' => $req['tieu_de'],
+            'noi_dung' => $noi_dung,
+            'user_id' => Auth::id(),
+        ]);
+        $res = [
+            'rc' => 0,
+            'rd' => 'Thêm dữ liệu thành công.',
+            'data' => $dataCreat
+        ];
+        return json_encode($res);
+    }
+
     public function doiMatKhau(Request $request)
     {
         Log::info('Đổi mật khẩu:');

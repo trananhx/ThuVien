@@ -307,22 +307,30 @@ class AdminController extends Controller
             $fileAnhBia = '/files/anhBia/' . $slug . '-' . uniqid() . '.' . $anhBia->extension();
             $anhBia->move(public_path('files/anhBia'), $fileAnhBia);
         }
+        try {
+            $dataCreat = taiLieu::create([
+                'mon_hoc_chinh' => $req['mon_hoc_chinh'],
+                'mon_hoc_phu' => $req['mon_hoc_phu'],
+                'ten_tai_lieu' => $req['ten_tai_lieu'],
+                'tac_gia' => $req['tac_gia'],
+                'tag' => $req['tag'],
+                'mo_ta' => $req['mo_ta'],
+                'noi_dung' => $req['noi_dung'],
+                'link_file' => $fileTaiLieu ? $fileTaiLieu : '/404',
+                'hinh_anh' => $fileAnhBia,
+            ]);
+        } catch (\Exception $exception){
+            $res = [
+                'rc' => '-1',
+                'data' => null,
+                'rd' => 'Có lỗi xảy ra trong quá trình thêm',
+            ];
+        }
 
-        $dataCreat = taiLieu::create([
-            'mon_hoc_chinh' => $req['mon_hoc_chinh'],
-            'mon_hoc_phu' => $req['mon_hoc_phu'],
-            'ten_tai_lieu' => $req['ten_tai_lieu'],
-            'tac_gia' => $req['tac_gia'],
-            'tag' => $req['tag'],
-            'mo_ta' => $req['mo_ta'],
-            'noi_dung' => $req['noi_dung'],
-            'link_file' => $fileTaiLieu ? $fileTaiLieu : '/404',
-            'hinh_anh' => $fileAnhBia,
-        ]);
         $res = [
             'rc' => '0',
             'data' => $dataCreat,
-            'rd' => 'Đăng ký khoản vay thành công',
+            'rd' => 'Thêm tài liệu thành công',
         ];
         return json_encode($res);
     }
