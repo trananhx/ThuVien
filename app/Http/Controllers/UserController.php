@@ -42,7 +42,7 @@ class UserController extends Controller
     public function getHome()
     {
         $list_ctdt = chuongTrinhDaoTao::with('monHoc')->orderBy('created_at', 'ASC')->get();
-        $thong_bao = thongBao::where('id', '>', 0)->paginate(5, ['*'], 'noti');;
+        $thong_bao = thongBao::where('id', '>', 0)->orderBy('created_at', 'DESC')->paginate(5, ['*'], 'noti');
         $list_new = taiLieu::with('monHocChinh')->paginate(12, ['*'], 'news');
         return view('user.home', compact(['list_new', 'list_ctdt', 'thong_bao']));
     }
@@ -50,7 +50,7 @@ class UserController extends Controller
     public function getThayDoiMatKhau()
     {
         $list_ctdt = chuongTrinhDaoTao::with('monHoc')->orderBy('created_at', 'ASC')->get();
-        $thong_bao = thongBao::where('id', '>', 0)->paginate(5, ['*'], 'noti');;
+        $thong_bao = thongBao::where('id', '>', 0)->orderBy('created_at', 'DESC')->paginate(5, ['*'], 'noti');
         $list_new = taiLieu::with('monHocChinh')->paginate(12, ['*'], 'news');
         return view('user.thay-doi-mat-khau', compact(['list_new', 'list_ctdt', 'thong_bao']));
     }
