@@ -5594,7 +5594,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nth[data-v-63f7ca7c] {\n    text-align: center;\n}\n", ""]);
+exports.push([module.i, "\nth[data-v-63f7ca7c] {\r\n    text-align: center;\n}\r\n", ""]);
 
 // exports
 
@@ -89472,7 +89472,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\ThuVienLaravel\resources\js\user-doi-mat-khau.js */"./resources/js/user-doi-mat-khau.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ThuVien\resources\js\user-doi-mat-khau.js */"./resources/js/user-doi-mat-khau.js");
 
 
 /***/ })
