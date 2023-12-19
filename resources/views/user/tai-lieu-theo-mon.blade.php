@@ -1,6 +1,6 @@
 @extends("user.layouts.app")
 @section("title")
-    <title>Tài liệu theo môn</title>
+    <title>Tài liệu theo học phần</title>
 @endsection
 @section("content")
     <section class="section section-doctor" style="padding-top: 120px; min-height: calc(100vh - 85px - 200px)">
