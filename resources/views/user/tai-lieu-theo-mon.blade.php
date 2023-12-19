@@ -60,7 +60,7 @@
                     </div>
                 @else
                     <div class="text-center">
-                        <h3>Học phần học chưa có tài liệu</h3>
+                        <h3>Học phần chưa có tài liệu</h3>
                     </div>
                 @endif
             </div>
