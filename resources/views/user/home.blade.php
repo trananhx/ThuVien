@@ -14,7 +14,9 @@
                                 [{{$tb->created_at}}] {{$tb->tieu_de}}</a></li>
                     @endforeach
                     {{ $thong_bao->links() }}
+                    <li class="list-group-item"><a href="/thong-bao">• Xem thêm</a></li>
                 </ul>
+
             </div>
             <div class="row" style="padding-top: 40px">
                 <div class="col-12 titleCustom"><h2>Tài liệu được quan tâm </h2></div>
