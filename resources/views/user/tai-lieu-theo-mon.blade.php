@@ -1,6 +1,6 @@
 @extends("user.layouts.app")
 @section("title")
-    <title>Tài liệu theo môn</title>
+    <title>Tài liệu theo học phần</title>
 @endsection
 @section("content")
     <section class="section section-doctor" style="padding-top: 120px; min-height: calc(100vh - 85px - 200px)">
@@ -60,7 +60,7 @@
                     </div>
                 @else
                     <div class="text-center">
-                        <h3>Môn học chưa có tài liệu</h3>
+                        <h3>Học phần chưa có tài liệu</h3>
                     </div>
                 @endif
             </div>
