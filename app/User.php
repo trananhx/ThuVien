@@ -41,4 +41,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Vote::class, 'user_vote', 'user_id', 'vote_id', 'id', 'id');
     }
 
+    public function sendPasswordResetNotification($token){
+        $this->notify(new \App\Notifications\CustomResetPasswordNotification($token));
+    }
 }

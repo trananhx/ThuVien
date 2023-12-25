@@ -179,8 +179,7 @@ class UserController extends Controller
     }
 
     public function getThongTinVote(Request $request){
-        $question_id = $request->input('question_id', 1);
-        $question = Question::find($question_id);
+        $question = Question::where('is_select', true)->first();
         if ($question == null)
             return json_encode([
                 'rc' => '-1',
@@ -188,21 +187,31 @@ class UserController extends Controller
             ]);
 
         $totalVote = DB::table('user_vote')->join('vote', 'user_vote.vote_id', '=', 'vote.id')
-            ->where('vote.question_id', '=', $question_id)->get()->count();
+            ->where('vote.question_id', '=', $question->id)->get()->count();
 
         $votes = $question->votes->map(function ($item) use ($totalVote) {
             $voteCount = UserVote::where('vote_id', $item->id)->get()->count();
-            return [
-                'id' => $item->id,
-                'name' => $item->name,
-                'percent' => round(($voteCount / $totalVote)*100),
-                'count' => $voteCount
-            ];
+            if ($totalVote > 0){
+                return [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'percent' => round(($voteCount / $totalVote)*100),
+                    'count' => $voteCount
+                ];
+            }
+            else {
+                return [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'percent' => 0,
+                    'count' => $voteCount
+                ];
+            }
         });
 
         $currentSelect = null;
         if ($request->user())
-            $currentSelect = $request->user()->votes()->where('question_id', $question_id)->first();
+            $currentSelect = $request->user()->votes()->where('question_id', $question->id)->first();
 
         return [
             'rc' => '0',
@@ -247,5 +256,20 @@ class UserController extends Controller
             'rc' => '0',
             'rd' => 'Chọn thành công',
         ]);
+    }
+
+    public function datTruocSach(Request $request){
+        $taiLieu = taiLieu::find($request->input('id'));
+        if (!$taiLieu){
+            $request->session()->flash('status', 'Có lỗi xảy ra');
+            return \Illuminate\Support\Facades\Redirect::back();
+        }
+        YeuCau::create([
+            'tieu_de' => 'Đặt trước sách '.$taiLieu->ten_tai_lieu,
+            'noi_dung' => '<p>Tôi cần đặt trước tài liệu '.$taiLieu->ten_tai_lieu. ' của tác giả '.$taiLieu->tac_gia. '</p><br><img class="img-thumbnail" width="200" height="200" src="'.url($taiLieu->hinh_anh).'"/>',
+            'user_id' => $request->user()->id
+        ]);
+        $request->session()->flash('status', 'Đặt trước tài liệu thành công');
+        return \Illuminate\Support\Facades\Redirect::back();
     }
 }

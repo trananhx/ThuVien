@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -5594,7 +5594,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nth[data-v-63f7ca7c] {\r\n    text-align: center;\n}\r\n", ""]);
+exports.push([module.i, "\nth[data-v-63f7ca7c] {\n    text-align: center;\n}\n", ""]);
 
 // exports
 
@@ -89465,14 +89465,14 @@ new Vue({
 
 /***/ }),
 
-/***/ 6:
+/***/ 7:
 /*!*************************************************!*\
   !*** multi ./resources/js/user-doi-mat-khau.js ***!
   \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\ThuVien\resources\js\user-doi-mat-khau.js */"./resources/js/user-doi-mat-khau.js");
+module.exports = __webpack_require__(/*! D:\ThuVienLaravel\resources\js\user-doi-mat-khau.js */"./resources/js/user-doi-mat-khau.js");
 
 
 /***/ })

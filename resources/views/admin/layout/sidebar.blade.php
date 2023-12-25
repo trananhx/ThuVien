@@ -19,6 +19,9 @@
                 <li class=" {{ Request::routeIs('admin.yeuCau')? 'active' : '' }}">
                     <a href="{{route('admin.yeuCau')}}"><i class="feather-sliders"></i> <span>Phản hồi</span></a>
                 </li>
+                <li class=" {{ Request::routeIs('admin.thamDo')? 'active' : '' }}">
+                    <a href="{{route('admin.thamDo')}}"><i class="feather-sliders"></i> <span>Thăm dò</span></a>
+                </li>
                 <li class=" {{ Request::routeIs('admin.user')? 'active' : '' }}">
                     <a href="{{route('admin.user')}}"><i class="feather-sliders"></i> <span>Người dùng</span></a>
                 </li>

@@ -51,7 +51,16 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'sdt' => ['required', 'numeric', 'digits_between:8,10'],
+            'mssv' => ['required', 'string', 'min:3'],
+        ], [
+            'email.*' => 'Email không hợp lệ hoặc đã bị người khác dùng',
+            'name.*' => 'Tên không hợp lệ',
+            'password.confirmed' => 'Mật khẩu phải giống mật khẩu xác nhận',
+            'password.*' => 'Mật khẩu ít nhất phải 6 kí tự',
+            'sdt.*' => 'Số điện thoại phải từ 8 - 10 số',
+            'mssv.*' => 'Mã số sinh viên ít nhất phải 3 k tự'
         ]);
     }
 
@@ -67,6 +76,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'phone' => $data['sdt'],
+            'ma_sv' => $data['mssv'],
         ]);
     }
 }

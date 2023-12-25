@@ -23,6 +23,19 @@
                                     <a disabled="disabled" style="cursor: not-allowed" class="btn btn-warning">Tài liệu ngừng hoạt động</a>
                                 @endif
                             </div>
+
+                            @if(!Auth::guest())
+                                <form action="{{ url('/dat-truoc-sach') }}" method="POST" class="blog-info w-100">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $post->id }}"></input>
+                                    <button class="btn btn-outline-success book-btn w-100">Đặt trước tài liệu</button>
+                                </form>
+                                @if (session('status'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
+                            @endif
                             <div class="blog-info clearfix">
                                 <div class="post-left">
                                     <ul>
