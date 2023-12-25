@@ -38,4 +38,13 @@ class ResetPasswordController extends Controller
         $this->middleware('guest');
     }
 
+    protected function validationErrorMessages()
+    {
+        return [
+            'token.*' => 'Token không hợp lệ',
+            'email.*' => 'Email không trùng khớp',
+            'password.*' => 'Mật khẩu không hợp lệ'
+        ];
+    }
+
 }
