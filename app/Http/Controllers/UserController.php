@@ -146,7 +146,7 @@ class UserController extends Controller
 
     public function themYeuCauGiaHan(Request $request){
         $req = $request->all();
-        $noi_dung = "Tôi cần gia hạn mượn sách ".$req['noi_dung'].", mssv: ".$request->user()->ma_sv;
+        $noi_dung = "Tôi cần gia hạn mượn sách ".$req['noi_dung']."(mã: ".$req['ma_vach']."), mssv: ".$request->user()->ma_sv;
         $dataCreat = YeuCau::create([
             'tieu_de' => $req['tieu_de'],
             'noi_dung' => $noi_dung,
