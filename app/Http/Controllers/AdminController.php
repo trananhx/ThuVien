@@ -13,10 +13,10 @@ use App\UserVote;
 use App\Vote;
 use App\YeuCau;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Hash;
 
 class AdminController extends Controller
 {
@@ -874,5 +874,28 @@ class AdminController extends Controller
             ];
         }
         return json_encode($res);
+    }
+
+    public function resetMatKhau(Request $request){
+        $req = $request->all();
+        $user = User::find($req['id']);
+        if ($user == null) {
+            return json_encode([
+                'rc' => -1,
+                'rd' => 'Không tìm thấy user',
+                'data' => null
+            ]);
+        }
+
+
+        $user->password = Hash::make("123456Aa@");
+        $user->setRememberToken(Str::random(60));
+        $user->save();
+
+        return json_encode([
+            'rc' => 0,
+            'rd' => 'Reset mật khẩu thành 123456Aa@ thành công',
+            'data' => null,
+        ]);
     }
 }

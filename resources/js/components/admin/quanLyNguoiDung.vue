@@ -44,6 +44,8 @@
                                 <td><p>{{ item.ma_sv }}</p></td>
                                 <td class="text-center"><p>{{ item.created_at }}</p></td>
                                 <td class="text-center">
+                                    <el-button size="mini" @click.prevent="resetMatKhau(item.id)" type="primary">Rest MK
+                                    </el-button>
                                     <el-button size="mini" @click.prevent="showUpdate(item)" type="warning">Chỉnh sửa
                                     </el-button>
                                     <el-button size="mini" @click.prevent="confirmDel(item)" type="danger">Xóa
@@ -433,6 +435,21 @@ export default {
                 duration: 3000
             });
         },
+
+        resetMatKhau(id){
+            this.loading.status = true;
+            rest_api.post('/admin/reset-mat-khau', {id: id}).then(response => {
+                if (response && response.data.rc == 0) {
+                    this.handleClose();
+                    this.getData()
+                    this.thongBao('success', 'Reset mật khẩu thành công!')
+                } else {
+                    this.thongBao('error', response.data.rd)
+                }
+            }).finally(() => {
+                this.loading.status = false;
+            })
+        }
     }
 }
 

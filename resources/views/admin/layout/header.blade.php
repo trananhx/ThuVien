@@ -73,6 +73,12 @@
                                 </span>
                     Quản lý
                 </a>
+                <a class="dropdown-item" href="{{route('user.thayDoiMatKhau')}}">
+                                 <span class="me-2">
+                                    <i class="fas fa-key"></i>
+                                </span>
+                    Đổi mật khẩu
+                </a>
                 <a class="dropdown-item"
                    onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();"
