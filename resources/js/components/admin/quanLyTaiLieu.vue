@@ -270,7 +270,7 @@
                 </div>
                 <span slot="footer" class="dialog-footer">
     <el-button @click="show_add = false">Đóng</el-button>
-    <el-button type="primary" @click="confirmAdd()">Thêm mới</el-button>
+    <el-button type="primary" @click="confirmAdd()" :disabled="loading.status">Thêm mới</el-button>
 </span>
             </el-dialog>
         </el-col>
@@ -287,12 +287,13 @@
                             <label>Chương trình đào tạo <span class="required" style="color: red">*</span></label>
                             <eselect style="width:100%" @change="chonChuongTrinhDaoTao" collapseTags
                                      v-model="dataUpdate.ctdt"
+                                     no-data-text="Không có dữ liệu"
                                      :placeholder="'Chọn'" filterable
                                      :data="list_chuong_trinh_dao_tao" :fields="['ten','id']"/>
                         </el-col>
                         <el-col :xs="12" :sm="8" :md="6" :lg="6" :xl="6">
                             <label>Áp dụng làm tài liệu chính cho học phần <span class="required" style="color: red">*</span></label>
-                            <el-select v-model="dataUpdate.mon_hoc_chinh" style="width: 100%" filterable
+                            <el-select v-model="dataUpdate.mon_hoc_chinh" no-data-text="Không có dữ liệu" style="width: 100%" filterable
                                        placeholder="Chọn">
                                 <el-option
                                     v-for="item in list_mon_hoc"
@@ -785,6 +786,7 @@ export default {
         {
             console.log('confirmUpdate')
             var dataForm = new FormData();
+            this.loading.status = true;
             dataForm.append('id', this.dataUpdate.id);
             dataForm.append('mon_hoc_chinh', this.dataUpdate.mon_hoc_chinh);
             dataForm.append('mon_hoc_phu', this.dataUpdate.mon_hoc_phu.toString());
@@ -819,9 +821,10 @@ export default {
                     {
                         this.thongBao('error', response.data.rd)
                     }
-                    this.loading.status = false;
                 }
-            ).catch((e) => {})
+            ).catch((e) => {}).finally(() => {
+                this.loading.status = false;
+            })
         },
         confirmAdd()
         {
@@ -830,6 +833,7 @@ export default {
                 this.thongBao('error', 'Vui lòng điền đầy đủ thông tin.')
                 return
             }
+            this.loading.status = true;
             var dataForm = new FormData();
             console.log(this.file_tai_lieu)
             dataForm.append('mon_hoc_chinh', this.dataAdd.mon_hoc_chinh);
@@ -862,13 +866,17 @@ export default {
                     {
                         this.thongBao('error', response.data.rd)
                     }
-                    this.loading.status = false;
+
                 }
-            ).catch((e) => {})
+            ).catch((e) => {}).finally(() => {
+                this.loading.status = false;
+            })
         },
         showAdd()
         {
             this.show_add = true;
+            this.list_anh_bia = [];
+            this.file_tai_lieu = null;
         },
         handleClose()
         {
