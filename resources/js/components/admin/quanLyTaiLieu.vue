@@ -114,7 +114,11 @@
 
                         <el-col :xs="12" :sm="8" :md="6" :lg="6" :xl="6">
                             <label>Áp dụng làm tài liệu chính cho học phần <span class="required" style="color: red">*</span></label>
-                            <el-select v-model="dataAdd.mon_hoc_chinh" style="width: 100%" filterable
+                            <eselect style="width:100%" collapseTags v-model="dataAdd.mon_hoc_chinh"
+                                     :placeholder="'Chọn'" filterable
+                                     :data="list_mon_hoc" :fields="['ten_mon','id']"/>
+
+                            <!-- <el-select v-model="dataAdd.mon_hoc_chinh" style="width: 100%" filterable
                                        placeholder="Chọn">
                                 <el-option
                                     v-for="item in list_mon_hoc"
@@ -122,7 +126,8 @@
                                     :label="item.ten_mon"
                                     :value="item.id">
                                 </el-option>
-                            </el-select>
+                            </el-select> -->
+
                         </el-col>
 
                         <el-col :xs="12" :sm="8" :md="6" :lg="6" :xl="6">
@@ -292,7 +297,12 @@
                         </el-col>
                         <el-col :xs="12" :sm="8" :md="6" :lg="6" :xl="6">
                             <label>Áp dụng làm tài liệu chính cho học phần <span class="required" style="color: red">*</span></label>
-                            <el-select v-model="dataUpdate.mon_hoc_chinh" style="width: 100%" filterable
+
+
+                            <eselect style="width:100%" collapseTags v-model="dataUpdate.mon_hoc_chinh"
+                                     :placeholder="'Chọn'" filterable
+                                     :data="list_mon_hoc" :fields="['ten_mon','id']"/>
+                            <!-- <el-select v-model="dataUpdate.mon_hoc_chinh" style="width: 100%" filterable
                                        placeholder="Chọn">
                                 <el-option
                                     v-for="item in list_mon_hoc"
@@ -300,7 +310,7 @@
                                     :label="item.ten_mon"
                                     :value="item.id">
                                 </el-option>
-                            </el-select>
+                            </el-select> -->
                         </el-col>
                         <el-col :xs="12" :sm="8" :md="6" :lg="6" :xl="6">
                             <label>Áp dụng làm tài liệu phụ cho học phần </label>
