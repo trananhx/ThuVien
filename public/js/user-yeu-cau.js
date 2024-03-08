@@ -8075,7 +8075,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nth[data-v-7ebb84f7] {\n    text-align: center;\n}\n", ""]);
+exports.push([module.i, "\nth[data-v-7ebb84f7] {\r\n    text-align: center;\n}\r\n", ""]);
 
 // exports
 
@@ -104672,7 +104672,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\ThuVienLaravel\resources\js\user-yeu-cau.js */"./resources/js/user-yeu-cau.js");
+module.exports = __webpack_require__(/*! E:\ThuVien2\resources\js\user-yeu-cau.js */"./resources/js/user-yeu-cau.js");
 
 
 /***/ })
