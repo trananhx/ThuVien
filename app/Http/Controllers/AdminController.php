@@ -888,8 +888,10 @@ class AdminController extends Controller
             ]);
         }
 
-
-        $user->password = Hash::make("123456Aa@");
+        $user->fill([
+            'password' => Hash::make("123456Aa@")
+        ]);
+        
         $user->setRememberToken(Str::random(60));
         $user->save();
 
