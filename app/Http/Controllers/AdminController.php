@@ -17,9 +17,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class AdminController extends Controller
 {
+    use ResetsPasswords;
+
     public function getHome()
     {
         return view('admin.home');
@@ -888,12 +891,13 @@ class AdminController extends Controller
             ]);
         }
 
-        $user->fill([
-            'password' => Hash::make("123456Aa@")
-        ]);
-        
-        $user->setRememberToken(Str::random(60));
-        $user->save();
+        // $user->fill([
+        //     'password' => Hash::make("123456Aa@")
+        // ]);
+
+        // $user->setRememberToken(Str::random(60));
+        // $user->save();
+        setUserPassword($user, "123456Aa@");
 
         return json_encode([
             'rc' => 0,
