@@ -513,6 +513,7 @@ class AdminController extends Controller
         $check = User::where('id', $req['id'])->first();
         if ($check) {
             $check->votes()->detach();
+            $check->yeucau()->delete();
             $check->delete();
             $res = [
                 'rc' => 0,
