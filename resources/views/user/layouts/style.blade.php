@@ -111,7 +111,7 @@
         cursor: not-allowed;
     }
 
-    .hetHan:hover {
+    .doc-img:hover .hetHan {
         scale: 1.1;
     }
 
