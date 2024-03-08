@@ -59,7 +59,7 @@
 
                                 <td class="text-center"><p>{{ item.luot_xem }}</p></td>
 
-                                <td class="text-center"><a :href="item.link_file" target="_blank">{{ item.link_file }}</a></td>
+                                <td class="text-center" style="max-width: 150px; overflow: hidden; white-space: normal !important;"><a :href="item.link_file" target="_blank">{{ item.link_file }}</a></td>
 
                                 <td class="text-center" style="max-width: 150px; overflow: hidden; white-space: normal !important;">
                                     <el-card shadow="always">
