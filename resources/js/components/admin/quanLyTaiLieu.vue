@@ -40,48 +40,63 @@
                             </thead>
                             <tbody v-if="list_data&&list_data.length">
                             <tr v-for="(item,index) in list_data" :key="index">
-                                <td class="text-center">{{(paging.currentPage - 1) * paging.limit + index + 1}}</td>
+                                <td class="text-center">{{ (paging.currentPage - 1) * paging.limit + index + 1 }}</td>
 
-                                <td class="text-center" style="max-width: 160px; overflow: hidden; white-space: normal !important;">
-                                <p style="height: 100%; margin: 0;">{{ item.ten_tai_lieu }}</p></td>
+                                <td class="text-center"
+                                    style="max-width: 160px; overflow: hidden; white-space: normal !important;">
+                                    <p style="height: 100%; margin: 0;">{{ item.ten_tai_lieu }}</p></td>
 
-                                <td class="text-center" style="max-width: 160px; overflow: hidden; white-space: normal !important;">
-                                <p style="height: 100%; margin: 0;">{{ item.mon_hoc_chinh ? item.mon_hoc_chinh.ten_mon : 'Trống' }}</p></td>
+                                <td class="text-center"
+                                    style="max-width: 160px; overflow: hidden; white-space: normal !important;">
+                                    <p style="height: 100%; margin: 0;">
+                                        {{ item.mon_hoc_chinh ? item.mon_hoc_chinh.ten_mon : 'Trống' }}</p></td>
 
-                                <td class="text-center" style="max-width: 160px; overflow: hidden; white-space: normal !important;">
-                                <p v-if="item.mon_hoc_phu">{{ getTenMonHoc(item.mon_hoc_phu) }}</p></td>
+                                <td class="text-center"
+                                    style="max-width: 160px; overflow: hidden; white-space: normal !important;">
+                                    <p v-if="item.mon_hoc_phu">{{ getTenMonHoc(item.mon_hoc_phu) }}</p></td>
 
-                                <td class="text-center" style="max-width: 150px; overflow: hidden; white-space: normal !important;">
-                                <p style="height: 100%; margin: 0;">{{ item.tac_gia }}</p></td>
+                                <td class="text-center"
+                                    style="max-width: 150px; overflow: hidden; white-space: normal !important;">
+                                    <p style="height: 100%; margin: 0;">{{ item.tac_gia }}</p></td>
 
-                                <td class="text-center" style="max-width: 150px; overflow: hidden; white-space: normal !important;">
-                                <p style="height: 100%; margin: 0;">{{ item.tag }}</p></td>
+                                <td class="text-center"
+                                    style="max-width: 150px; overflow: hidden; white-space: normal !important;">
+                                    <p style="height: 100%; margin: 0;">{{ item.tag }}</p></td>
 
                                 <td class="text-center"><p>{{ item.luot_xem }}</p></td>
 
-                                <td class="text-center" style="max-width: 150px; overflow: hidden; white-space: normal !important;"><a :href="item.link_file" target="_blank">{{ item.link_file }}</a></td>
+                                <td class="text-center"
+                                    style="max-width: 150px; overflow: hidden; white-space: normal !important;"><a
+                                    :href="item.link_file" target="_blank">{{ item.link_file }}</a></td>
 
-                                <td class="text-center" style="max-width: 150px; overflow: hidden; white-space: normal !important;">
+                                <td class="text-center"
+                                    style="max-width: 150px; overflow: hidden; white-space: normal !important;">
                                     <el-card shadow="always">
                                         <img :src="item.hinh_anh" alt="" style="width: 100px;height: 150px">
                                     </el-card>
                                 </td>
 
-                                <td class="text-center" style="max-width: 150px; overflow: hidden; white-space: normal !important;">
+                                <td class="text-center"
+                                    style="max-width: 150px; overflow: hidden; white-space: normal !important;">
                                     <p style="height: 100%; margin: 0;">{{ item.created_at }}</p></td>
 
-                                <td class="text-center" style="max-width: 150px; overflow: hidden; white-space: normal !important;">
-                                    <p style="height: 100%; margin: 0;">{{ item.trang_thai==1?'Còn':'Đã hết' }}</p></td>
+                                <td class="text-center"
+                                    style="max-width: 150px; overflow: hidden; white-space: normal !important;">
+                                    <p style="height: 100%; margin: 0;">{{
+                                            item.trang_thai == 1 ? 'Còn' : 'Đã hết'
+                                        }}</p></td>
 
                                 <td class="text-center">
-                                    <el-button size="mini" @click.prevent="showUpdate(item)" type="warning"> Chỉnh sửa</el-button>
-                                    <el-button size="mini" @click.prevent="confirmDel(item)" type="danger"> Xóa </el-button>
+                                    <el-button size="mini" @click.prevent="showUpdate(item)" type="warning"> Chỉnh sửa
+                                    </el-button>
+                                    <el-button size="mini" @click.prevent="confirmDel(item)" type="danger"> Xóa
+                                    </el-button>
                                 </td>
                             </tr>
                             </tbody>
                             <tbody v-else>
                             <tr>
-                                <td colspan="10" class="text-center"> <p> Không có dữ liệu </p></td>
+                                <td colspan="10" class="text-center"><p> Không có dữ liệu </p></td>
                             </tr>
                             </tbody>
                         </table>
@@ -113,7 +128,8 @@
                         </el-col>
 
                         <el-col :xs="12" :sm="8" :md="6" :lg="6" :xl="6">
-                            <label>Áp dụng làm tài liệu chính cho học phần <span class="required" style="color: red">*</span></label>
+                            <label>Áp dụng làm tài liệu chính cho học phần <span class="required"
+                                                                                 style="color: red">*</span></label>
                             <eselect style="width:100%" collapseTags v-model="dataAdd.mon_hoc_chinh"
                                      :placeholder="'Chọn'" filterable
                                      :data="list_mon_hoc" :fields="['ten_mon','id']"/>
@@ -203,19 +219,51 @@
                             </el-select>
                         </el-col>
 
+                        <el-col :xs="12" :sm="24" :md="6" :lg="6" :xl="6">
+                            <label>Nguồn tài liệu <span class="required" style="color: red">*</span></label>
+                            <el-select v-model="dataAdd.nguon" @change="chonNguonTaiLieu()" style="width: 100%"
+                                       filterable placeholder="Chọn">
+                                <el-option
+                                    v-for="item in list_nguon_tai_lieu"
+                                    :key="item.value"
+                                    :label="item.name"
+                                    :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </el-col>
+                        <el-col :span="24"></el-col>
                         <el-col :span="6" v-if="file_tai_lieu">
                             <label>Tài liệu đã chọn</label>
                             <div class="source d-flex">
                                 <ul class="el-upload-list el-upload-list--picture-card " style="display: contents">
-                                    <li style="width: 100%; margin: 0" tabindex="0" class="el-upload-list__item is-ready">
-                                        <el-alert :title="file_tai_lieu?file_tai_lieu.name:''" type="success" effect="dark">
+                                    <li style="width: 100%; margin: 0" tabindex="0"
+                                        class="el-upload-list__item is-ready">
+                                        <el-alert :title="file_tai_lieu?file_tai_lieu.name:''" type="success"
+                                                  effect="dark">
                                         </el-alert>
                                     </li>
                                 </ul>
                             </div>
                         </el-col>
+                        <el-col v-else :span="6">
+                            <label>Tài liệu đã chọn</label>
+                            <div class="source d-flex">
+                                <ul class="el-upload-list el-upload-list--picture-card " style="display: contents">
+                                    <li style="width: 100%; margin: 0"
+                                        tabindex="0"
+                                        class="el-upload-list__item is-ready"
+                                    >
+                                        <el-alert
+                                            :title="dataAdd.nguon==1?'Chưa có tài liệu nào được chọn':dataAdd.link_file?dataAdd.link_file:'[Trống]'"
+                                            type="info"
+                                            effect="dark">
+                                        </el-alert>
+                                    </li>
+                                </ul>
 
-                        <el-col :span="6">
+                            </div>
+                        </el-col>
+                        <el-col v-if="dataAdd.nguon==1" :span="6">
                             <label>Tài liệu</label>
                             <div class="source d-flex">
                                 <ul class="el-upload-list el-upload-list--picture-card " style="display: contents">
@@ -235,6 +283,11 @@
                                     </li>
                                 </ul>
                             </div>
+                        </el-col>
+                        <el-col v-else :span="6">
+                            <label>Liên kết tài liệu</label>
+                            <el-input type="text" placeholder="Nhập" clearable
+                                      v-model="dataAdd.link_file"></el-input>
                         </el-col>
 
                         <el-col :span="12">
@@ -258,7 +311,7 @@
                                                 action="/"
                                                 :auto-upload="false">
                                                 <div tabindex="0" class="el-upload el-upload--picture-card">
-                                                    <i class="el-icon-plus" /></div>
+                                                    <i class="el-icon-plus"/></div>
                                             </el-upload>
                                         </div>
                                     </li>
@@ -296,7 +349,8 @@
                                      :data="list_chuong_trinh_dao_tao" :fields="['ten','id']"/>
                         </el-col>
                         <el-col :xs="12" :sm="8" :md="6" :lg="6" :xl="6">
-                            <label>Áp dụng làm tài liệu chính cho học phần <span class="required" style="color: red">*</span></label>
+                            <label>Áp dụng làm tài liệu chính cho học phần <span class="required"
+                                                                                 style="color: red">*</span></label>
                             <eselect style="width:100%" collapseTags v-model="dataUpdate.mon_hoc_chinh"
                                      :placeholder="'Chọn'" filterable
                                      :data="list_mon_hoc" :fields="['ten_mon','id']"/>
@@ -378,6 +432,19 @@
                                 </el-option>
                             </el-select>
                         </el-col>
+                        <el-col :xs="12" :sm="24" :md="6" :lg="6" :xl="6">
+                            <label>Nguồn tài liệu <span class="required" style="color: red">*</span></label>
+                            <el-select v-model="dataUpdate.nguon" @change="chonNguonTaiLieu2()" style="width: 100%"
+                                       filterable placeholder="Chọn">
+                                <el-option
+                                    v-for="item in list_nguon_tai_lieu_update"
+                                    :key="item.value"
+                                    :label="item.name"
+                                    :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </el-col>
+                        <el-col :span="24"></el-col>
                         <el-col v-if="file_tai_lieu" :span="6">
                             <label>Tài liệu đã chọn</label>
                             <div class="source d-flex">
@@ -396,7 +463,25 @@
 
                             </div>
                         </el-col>
-                        <el-col :span="6">
+                        <el-col v-else :span="6">
+                            <label>Tài liệu đã chọn</label>
+                            <div class="source d-flex">
+                                <ul class="el-upload-list el-upload-list--picture-card " style="display: contents">
+                                    <li style="width: 100%; margin: 0"
+                                        tabindex="0"
+                                        class="el-upload-list__item is-ready"
+                                    >
+                                        <el-alert
+                                            :title="dataUpdate.nguon==1?'Chưa có tài liệu nào được chọn':dataUpdate.link_file?dataUpdate.link_file:'[trống]'"
+                                            type="info"
+                                            effect="dark">
+                                        </el-alert>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </el-col>
+                        <el-col v-if="dataUpdate.nguon==1" :span="6">
                             <label>Tài liệu</label>
                             <div class="source d-flex">
                                 <ul class="el-upload-list el-upload-list--picture-card " style="display: contents">
@@ -418,6 +503,11 @@
                                 </ul>
 
                             </div>
+                        </el-col>
+                        <el-col v-else :span="6">
+                            <label>Liên kết tài liệu</label>
+                            <el-input type="text" placeholder="Nhập" clearable
+                                      v-model="dataUpdate.link_file"></el-input>
                         </el-col>
                         <el-col :span="12">
                             <label>Ảnh bìa <span class="required" style="color: red">*</span></label>
@@ -519,6 +609,8 @@ export default {
                 ten_tai_lieu: ''
             },
             dataAdd: {
+                link_file: '',
+                nguon: 1,
                 ctdt: '',
                 mon_hoc: '',
                 ten_tai_lieu: '',
@@ -533,6 +625,14 @@ export default {
             list_trang_thai: [
                 {id: 1, name: 'Đang hoạt động'},
                 {id: 0, name: 'Ngừng hoạt động'},
+            ],
+            list_nguon_tai_lieu: [
+                {value: 1, name: 'Từ thiết bị'},
+                {value: 2, name: 'Từ liên kết'},
+            ],
+            list_nguon_tai_lieu_update: [
+                {value: 1, name: 'Từ thiết bị'},
+                {value: 2, name: 'Từ liên kết'},
             ],
             ds_loai_tai_lieu: [
                 {name: 'Đọc tại chỗ', value: 1},
@@ -579,7 +679,7 @@ export default {
                         this.thongBao('warning', response.data.rd)
                     }
                     localStorage.setItem('thongBaoChuaXem', response.data.data);
-                    window.dispatchEvent( new Event('storage'));
+                    window.dispatchEvent(new Event('storage'));
                     this.loading.status = false;
                 }
             ).catch((e) => {
@@ -595,7 +695,7 @@ export default {
                 response => {
                     if (response && response.data) {
                         localStorage.setItem('thongBaoChuaXem', response.data.data);
-                        window.dispatchEvent( new Event('storage'));
+                        window.dispatchEvent(new Event('storage'));
                     }
                 }
             ).catch((e) => {
@@ -622,6 +722,18 @@ export default {
             console.log('uploadFileTaiLieu')
             console.log(file)
             console.log(fileList)
+            const allowedFormats = ['.pdf', '.doc', '.docx'];
+            const fileExtension = file.name.substring(file.name.lastIndexOf('.'));
+            console.log('fileExtension')
+            console.log(fileExtension)
+            // if (!allowedFormats.includes(fileExtension)) {
+            //     console.log('Chọn không đúng định dạng')
+            //     this.thongBao('error', 'Vui lòng chọn đúng định dạng tài liệu.')
+            //     this.$refs.uploadShop.clearFiles()
+            //     this.file_tai_lieu = null;
+            //     this.$refs.uploadShop.value = null
+            //     return;
+            // }
             this.updateTaiLieu = false;
             this.file_tai_lieu = null;
             if (file) {
@@ -649,6 +761,26 @@ export default {
             })
             this.$refs.uploadShop.clearFiles()
             this.$refs.uploadShop.value = null
+        },
+        chonNguonTaiLieu() {
+            console.log('chonNguonTaiLieu')
+            this.updateTaiLieu = false;
+            this.file_tai_lieu = null;
+            if(this.dataAdd.nguon==1){
+                this.$refs.uploadShop.clearFiles()
+                this.$refs.uploadShop.value = null
+            }
+        },
+        chonNguonTaiLieu2() {
+            console.log('chonNguonTaiLieu')
+            console.log(this.dataUpdate.nguon)
+            console.log(this.dataUpdate.nguon)
+            this.updateTaiLieu = false;
+            this.file_tai_lieu = null;
+            if(this.dataUpdate.nguon==1){
+                this.$refs.uploadShop.clearFiles()
+                this.$refs.uploadShop.value = null
+            }
         },
         chonChuongTrinhDaoTao() {
             this.dataSearch.mon_hoc = '';
@@ -683,82 +815,76 @@ export default {
                 .catch(_ => {
                 });
         },
-        getData()
-        {
+        getData() {
             this.handleClose();
             let params =
-            {
-                start: this.paging.start,
-                limit: this.paging.limit,
-                key: this.dataSearch.ten_tai_lieu
-            }
+                {
+                    start: this.paging.start,
+                    limit: this.paging.limit,
+                    key: this.dataSearch.ten_tai_lieu
+                }
             var url = '/admin/lay-danh-sach-tai-lieu'
             this.loading.status = true;
             this.loading.text = 'Loading...'
             rest_api.post(url, params).then(
                 response => {
-                    if (response.data.rc == 0)
-                    {
+                    if (response.data.rc == 0) {
                         this.list_data = response.data.data;
                         this.paging.total = response.data.total
-                    }
-                    else
-                    {
+                    } else {
                         this.list_data = [];
                         this.paging.total = 0;
                         this.thongBao('error', response.data.rd)
                     }
                     this.loading.status = false;
                 }
-            ).catch((e) => {})
+            ).catch((e) => {
+            })
         },
         showUpdate(item) {
+            item.nguon=2;
             this.dataUpdate = JSON.parse(JSON.stringify(item))
-            this.dataUpdate.tac_gia = item.tac_gia?item.tac_gia.split(',').sort():''
-            this.dataUpdate.tag = item.tag?item.tag.split(',').sort():''
-            this.dataUpdate.mon_hoc_phu = item.mon_hoc_phu?this.arrayStringToNumber(item.mon_hoc_phu.split(',').sort()):'';
+            this.dataUpdate.tac_gia = item.tac_gia ? item.tac_gia.split(',').sort() : ''
+            this.dataUpdate.tag = item.tag ? item.tag.split(',').sort() : ''
+            this.dataUpdate.mon_hoc_phu = item.mon_hoc_phu ? this.arrayStringToNumber(item.mon_hoc_phu.split(',').sort()) : '';
             this.dataUpdate.mon_hoc_chinh = parseInt(item.mon_hoc_chinh.id)
             this.dataUpdate.ctdt = ''
-            this.file_tai_lieu = { name: item.link_file }
+            // this.file_tai_lieu = {name: item.link_file}
             this.list_anh_bia =
-            [
-                {
-                    type: 1,
-                    link: item.hinh_anh
-                }
-            ]
+                [
+                    {
+                        type: 1,
+                        link: item.hinh_anh
+                    }
+                ]
             console.log('data update:')
             console.log(this.dataUpdate)
             this.show_update = true;
         },
-        getMonHoc()
-        {
+        getMonHoc() {
             let params =
-            {
-                start: 0,
-                limit: 9999,
-                ctdt: this.dataAdd.ctdt
-            }
+                {
+                    start: 0,
+                    limit: 9999,
+                    ctdt: this.dataAdd.ctdt
+                }
             var url = '/admin/lay-danh-sach-mon-hoc'
             this.loading.status = true;
             this.loading.text = 'Loading...'
             rest_api.post(url, params).then(
                 response => {
-                    if (response.data.rc == 0)
-                    {
+                    if (response.data.rc == 0) {
                         this.list_mon_hoc = response.data.data;
-                    }
-                    else
-                    {
+                    } else {
                         this.list_mon_hoc = [];
                         this.thongBao('error', response.data.rd)
                     }
                     this.loading.status = false;
                 }
-            ).catch((e) => {})
+            ).catch((e) => {
+            })
         },
-        getChuongTrinhDaoTao()
-        {
+        getChuongTrinhDaoTao() {
             let params = {
                 start: 0,
                 limit: 999999,
@@ -769,12 +895,9 @@ export default {
             this.loading.text = 'Loading...'
             rest_api.post(url, params).then(
                 response => {
-                    if (response.data.rc == 0)
-                    {
+                    if (response.data.rc == 0) {
                         this.list_chuong_trinh_dao_tao = response.data.data;
-                    }
-                    else
-                    {
+                    } else {
                         this.list_chuong_trinh_dao_tao = [];
                         this.thongBao('error', response.data.rd)
                     }
@@ -782,18 +905,18 @@ export default {
                     console.log('Chương trình đào tạo:')
                     console.log(this.list_chuong_trinh_dao_tao)
                 }
-            ).catch((e) => {})
+            ).catch((e) => {
+            })
         },
-        arrayStringToNumber(arr)
-        {
-            let arrOfNum = arr.map(str => { return parseInt(str, 10); });
+        arrayStringToNumber(arr) {
+            let arrOfNum = arr.map(str => {
+                return parseInt(str, 10);
+            });
             return arrOfNum
         },
-        confirmUpdate()
-        {
+        confirmUpdate() {
             console.log('confirmUpdate')
             var dataForm = new FormData();
-            this.loading.status = true;
             dataForm.append('id', this.dataUpdate.id);
             dataForm.append('mon_hoc_chinh', this.dataUpdate.mon_hoc_chinh);
             dataForm.append('mon_hoc_phu', this.dataUpdate.mon_hoc_phu.toString());
@@ -804,42 +927,72 @@ export default {
             dataForm.append('mo_ta', this.dataUpdate.mo_ta);
             dataForm.append('noi_dung', this.dataUpdate.noi_dung);
             dataForm.append('trang_thai', this.dataUpdate.trang_thai);
-            if (this.updateTaiLieu)
-            {
-                dataForm.append('tai_lieu', this.file_tai_lieu, this.file_tai_lieu.name)
+            dataForm.append('link_file', this.dataUpdate.link_file);
+            dataForm.append('nguon', this.dataUpdate.nguon);
+
+            if (this.dataUpdate.nguon == 2 && this.dataUpdate.link_file == '') {
+                this.thongBao('error', 'Vui lòng bổ sung link tài liệu')
+                return;
             }
-            if (this.dataForm && this.dataForm.length)
-            {
+            // if (this.dataUpdate.nguon == 2 && !this.checkFileExtension(this.dataUpdate.link_file)) {
+            //     console.log('Không đúng link')
+            //     this.thongBao('error', 'Liên kết file tài liệu không hợp lệ')
+            //     return
+            // }
+            if(this.dataUpdate.nguon==1){
+                if (this.updateTaiLieu) {
+                    dataForm.append('tai_lieu', this.file_tai_lieu, this.file_tai_lieu.name)
+                }
+            }
+            if (this.dataForm && this.dataForm.length) {
                 Array
                     .from(Array(this.dataForm.length).keys())
-                    .map(x => { dataForm.append('anh_bia', this.dataForm[x], this.dataForm[x].name) })
+                    .map(x => {
+                        dataForm.append('anh_bia', this.dataForm[x], this.dataForm[x].name)
+                    })
             }
             console.log('Gửi đi:')
             console.log(dataForm)
+            this.loading.status = true;
             rest_api.post('/admin/sua-tai-lieu', dataForm).then(
                 response => {
-                    if (response && response.data.rc == 0)
-                    {
+                    if (response && response.data.rc == 0) {
                         this.handleClose();
                         this.getData()
                         this.thongBao('success', 'Thành công')
-                    }
-                    else
-                    {
+                    } else {
                         this.thongBao('error', response.data.rd)
                     }
                 }
-            ).catch((e) => {}).finally(() => {
+            ).catch((e) => {
+            }).finally(() => {
                 this.loading.status = false;
             })
         },
-        confirmAdd()
-        {
-            if ( this.dataAdd.noi_dung == '' || this.dataAdd.mon_hoc_chinh == '' )
-            {
+
+        checkFileExtension(url) {
+            console.log('checkFileExtension:' + url)
+            const extension = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            console.log('extension:' + extension)
+            const allowedExtensions = ['pdf', 'doc', 'docx'];
+            return allowedExtensions.includes(extension);
+        },
+        confirmAdd() {
+            console.log('dataAdd')
+            console.log(this.dataAdd)
+            if (this.dataAdd.noi_dung == '' || this.dataAdd.mon_hoc_chinh == '') {
                 this.thongBao('error', 'Vui lòng điền đầy đủ thông tin.')
                 return
             }
+            if (this.dataAdd.nguon == 2 && this.dataAdd.link_file == '') {
+                this.thongBao('error', 'Vui lòng bổ sung link tài liệu')
+                return;
+            }
+            // if (this.dataAdd.nguon == 2 && !this.checkFileExtension(this.dataAdd.link_file)) {
+            //     console.log('Không đúng link')
+            //     this.thongBao('error', 'Liên kết file tài liệu không hợp lệ')
+            //     return
+            // }
             this.loading.status = true;
             var dataForm = new FormData();
             console.log(this.file_tai_lieu)
@@ -850,80 +1003,73 @@ export default {
             dataForm.append('tag', this.dataAdd.tag);
             dataForm.append('mo_ta', this.dataAdd.mo_ta);
             dataForm.append('noi_dung', this.dataAdd.noi_dung);
-            if(this.file_tai_lieu)
-            {
-                dataForm.append('tai_lieu', this.file_tai_lieu, this.file_tai_lieu.name)
-            }
-            if (this.dataForm && this.dataForm.length)
-            {
-                Array
-                    .from(Array(this.dataForm.length).keys())
-                    .map(x => { dataForm.append('anh_bia', this.dataForm[x], this.dataForm[x].name)})
+            dataForm.append('nguon', this.dataAdd.nguon);
+            if (this.dataAdd.nguon == 2) {
+                dataForm.append('link_file', this.dataAdd.link_file);
+            } else {
+                if (this.file_tai_lieu) {
+                    dataForm.append('tai_lieu', this.file_tai_lieu, this.file_tai_lieu.name)
+                }
+                if (this.dataForm && this.dataForm.length) {
+                    Array
+                        .from(Array(this.dataForm.length).keys())
+                        .map(x => {
+                            dataForm.append('anh_bia', this.dataForm[x], this.dataForm[x].name)
+                        })
+                }
             }
             console.log(dataForm)
             rest_api.post('/admin/them-tai-lieu', dataForm).then(
                 response => {
-                    if (response && response.data.rc == 0)
-                    {
+                    if (response && response.data.rc == 0) {
                         this.handleClose();
                         this.getData()
                         this.thongBao('success', 'Thành công')
-                    }
-                    else
-                    {
+                    } else {
                         this.thongBao('error', response.data.rd)
                     }
 
                 }
-            ).catch((e) => {}).finally(() => {
+            ).catch((e) => {
+            }).finally(() => {
                 this.loading.status = false;
             })
         },
-        showAdd()
-        {
+        showAdd() {
             this.show_add = true;
             this.list_anh_bia = [];
             this.file_tai_lieu = null;
         },
-        handleClose()
-        {
+        handleClose() {
             this.show_add = false;
             this.show_update = false;
         },
-        layLai(e)
-        {
+        layLai(e) {
             this.paging.start = e.start;
             this.paging.limit = e.limit;
             this.paging.currentPage = e.currentPage;
             this.getData()
         },
-        thongBao(typeNoty, msgNoty)
-        {
+        thongBao(typeNoty, msgNoty) {
             let msg = "";
             let cl = "";
-            if (msgNoty)
-            {
+            if (msgNoty) {
                 msg = msgNoty;
             }
             let type = "success";
-            if (typeNoty)
-            {
+            if (typeNoty) {
                 type = typeNoty
             }
-            if (type == "success")
-            {
+            if (type == "success") {
                 cl = "dts-noty-success"
             }
-            if (type == "warning")
-            {
+            if (type == "warning") {
                 cl = "dts-noty-warning"
             }
-            if (type == "error")
-            {
+            if (type == "error") {
                 cl = "dts-noty-error"
             }
-            if (type == "info")
-            {
+            if (type == "info") {
                 cl = "dts-noty-info"
             }
             this.$message({
@@ -943,16 +1089,14 @@ th {
     text-align: center;
 }
 
-.el-col
-{
+.el-col {
     padding-top: 15px;
 }
 
-.el-col label
-{
+.el-col label {
     margin-bottom: 0;
 }
-.required
-{
+
+.required {
 }
 </style>

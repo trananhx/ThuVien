@@ -96,11 +96,16 @@ class AdminController extends Controller
             $check->mo_ta = $req['mo_ta'];
             $check->noi_dung = $req['noi_dung'];
             $check->trang_thai = $req['trang_thai'];
-            if ($request->file('tai_lieu')) {
-                $taiLieu = $request->file('tai_lieu');
-                $fileTaiLieu = '/files/taiLieu/' . $slug . '-' . uniqid() . '.' . $taiLieu->extension();
-                $taiLieu->move(public_path('files/taiLieu'), $fileTaiLieu);
-                $check->link_file = $fileTaiLieu;
+            if($req['nguon']==1){
+
+                if ($request->file('tai_lieu')) {
+                    $taiLieu = $request->file('tai_lieu');
+                    $fileTaiLieu = '/files/taiLieu/' . $slug . '-' . uniqid() . '.' . $taiLieu->extension();
+                    $taiLieu->move(public_path('files/taiLieu'), $fileTaiLieu);
+                    $check->link_file = $fileTaiLieu;
+                }
+            }else{
+                $check->link_file = $req['link_file'];
             }
             if ($request->file('anh_bia')) {
                 $anhBia = $request->file('anh_bia');
@@ -300,22 +305,33 @@ class AdminController extends Controller
     {
         Log::info('Thêm tài liệu');
         $req = $request->all();
+        Log::info($req);
         $fileTaiLieu = null;
         $fileAnhBia = null;
+        $dataCreat = null;
         $slug = Str::slug($req['ten_tai_lieu']);
         Log::info('Slug là:');
         Log::info($slug);
-        if ($request->file('tai_lieu')) {
-            $taiLieu = $request->file('tai_lieu');
-            $fileTaiLieu = '/files/taiLieu/' . $slug . '-' . uniqid() . '.' . $taiLieu->extension();
-            $taiLieu->move(public_path('files/taiLieu'), $fileTaiLieu);
+        if($req['nguon']==1){
+            Log::info('Tài liệu nhập từ máy');
+            if ($request->file('tai_lieu')) {
+                $taiLieu = $request->file('tai_lieu');
+                $fileTaiLieu = '/files/taiLieu/' . $slug . '-' . uniqid() . '.' . $taiLieu->extension();
+                $taiLieu->move(public_path('files/taiLieu'), $fileTaiLieu);
+            }
+        }else{
+            Log::info('Tài liệu nhập từ link');
+            $fileTaiLieu = $req['link_file'];
+
         }
         if ($request->file('anh_bia')) {
             $anhBia = $request->file('anh_bia');
             $fileAnhBia = '/files/anhBia/' . $slug . '-' . uniqid() . '.' . $anhBia->extension();
             $anhBia->move(public_path('files/anhBia'), $fileAnhBia);
         }
+        Log::info('$fileTaiLieu:' .$fileTaiLieu);
         try {
+            Log::info('case 1');
             $dataCreat = taiLieu::create([
                 'mon_hoc_chinh' => $req['mon_hoc_chinh'],
                 'mon_hoc_phu' => $req['mon_hoc_phu'],
@@ -892,7 +908,7 @@ class AdminController extends Controller
         $user->fill([
             'password' => Hash::make("123456Aa@")
         ]);
-        
+
         $user->setRememberToken(Str::random(60));
         $user->save();
 

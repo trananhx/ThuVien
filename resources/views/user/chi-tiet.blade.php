@@ -9,21 +9,49 @@
                 <div class="col-lg-8 col-md-12">
                     <div class="blog-view">
                         <div class="blog blog-single-post">
-                            <div class="blog-image">
-                                <a href="">
-                                    <img alt="" style="width: 200px;height: 300px;border-radius: 5px" src="{{$post->hinh_anh?$post->hinh_anh:'assets/img/blog/blog-01.jpg'}}"
-                                         class="img-fluid"></a>
-                            </div>
+                            @if(substr($post->link_file, -4) === ".pdf"||substr($post->link_file, -4) === ".doc"||substr($post->link_file, -4) === ".docx")
+                            @else
+                                <div class="blog-image">
+                                    <a href="">
+                                        <img alt="" style="width: 200px;height: 300px;border-radius: 5px"
+                                             src="{{$post->hinh_anh?$post->hinh_anh:'assets/img/blog/blog-01.jpg'}}"
+                                             class="img-fluid"></a>
+                                </div>
+                            @endif
                             <h3 class="blog-title">{{$post->ten_tai_lieu}}</h3>
-
-                            <div class="blog-info clearfix">
-                                @if($post->trang_thai==1)
-                                    <a href="{{$post->link_file}}" class="btn btn-outline-success book-btn">Xem ngay/Tải xuống</a>
+                            <div class="blog-info">
+                                @if(substr($post->link_file, -4) === ".pdf"||substr($post->link_file, -4) === ".doc"||substr($post->link_file, -4) === ".docx")
+                                    @if(substr($post->link_file, -4) === ".pdf")
+                                        <iframe style="width: 100%; height: 70vh; min-height: 300px;"
+                                                src="{{$post->link_file}}"></iframe>
+                                    @else
+                                        <iframe style="width: 100%; height: 70vh; min-height: 300px;"
+                                                src="{{'https://view.officeapps.live.com/op/view.aspx?src='.$post->link_file}}}"></iframe>
+                                    @endif
                                 @else
-                                    <a disabled="disabled" style="cursor: not-allowed" class="btn btn-warning">Tài liệu ngừng hoạt động</a>
+{{--                                    <div class="blog-image">--}}
+{{--                                        <a href="">--}}
+{{--                                            <img alt="" style="width: 200px;height: 300px;border-radius: 5px"--}}
+{{--                                                 src="{{$post->hinh_anh?$post->hinh_anh:'assets/img/blog/blog-01.jpg'}}"--}}
+{{--                                                 class="img-fluid"></a>--}}
+{{--                                    </div>--}}
                                 @endif
                             </div>
-
+                            @if(substr($post->link_file, -4) === ".pdf"||substr($post->link_file, -4) === ".doc"||substr($post->link_file, -4) === ".docx")
+                            @else
+                                <div class="blog-info clearfix">
+                                    @if($post->trang_thai==1)
+                                        <a href="{{$post->link_file}}" target="_blank"
+                                           class="btn btn-outline-success book-btn">Xem
+                                            ngay/Tải
+                                            xuống</a>
+                                    @else
+                                        <a disabled="disabled" style="cursor: not-allowed" class="btn btn-warning">Tài
+                                            liệu
+                                            ngừng hoạt động</a>
+                                    @endif
+                                </div>
+                            @endif
                             @if(!Auth::guest())
                                 <form action="{{ url('/dat-truoc-sach') }}" method="POST" class="blog-info w-100">
                                     @csrf

@@ -56,14 +56,14 @@
                                     </li>
                                 </ul>
                                 <div class="row row-sm">
-                                    <div class="col-6">
-                                        @if($post->trang_thai==1)
-                                            <a href="{{$post->link_file}}" class="btn view-btn">Xem/Tải</a>
-                                        @else
-                                            <a style="cursor: not-allowed" class="btn view-btn">Tạm hết</a>
-                                        @endif
-                                    </div>
-                                    <div class="col-6"><a href="{{route('user.chiTietTaiLieu').'?postId='.$post->id}}"
+{{--                                    <div class="col-6">--}}
+{{--                                        @if($post->trang_thai==1)--}}
+{{--                                            <a href="{{$post->link_file}}" @click="handleLinkClick" class="link-view btn view-btn">Xem/Tải</a>--}}
+{{--                                        @else--}}
+{{--                                            <a style="cursor: not-allowed" class="btn view-btn">Tạm hết</a>--}}
+{{--                                        @endif--}}
+{{--                                    </div>--}}
+                                    <div class="col-12"><a href="{{route('user.chiTietTaiLieu').'?postId='.$post->id}}"
                                                           class="btn book-btn">Chi tiết</a>
                                     </div>
                                 </div>
