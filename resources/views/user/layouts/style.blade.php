@@ -19,7 +19,8 @@
         font-family: 'Source Sans Pro', sans-serif
     }
 
-    .text-right {
+    .text-right
+    {
         text-align: right;
     }
 
