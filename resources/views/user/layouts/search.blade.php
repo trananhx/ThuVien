@@ -5,8 +5,8 @@
                 <div class="news-five"
                      style="background:url('https://png.pngtree.com/thumb_back/fw800/background/20230702/pngtree-educational-materials-3d-render-for-back-to-school-image_3728180.jpg')">
                     <div class="news-five-head aos" data-aos="fade-up">
-                        <h2>Tìm kiếm tài liệu</h2>
-                        <p style="color:blue">Tìm kiếm tài liệu phù hợp và tốt nhất cho bạn.</p>
+                        <h2>BMTU Library</h2>
+                        <p style="color:blue"></p>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-md-12">
