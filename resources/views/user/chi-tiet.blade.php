@@ -35,7 +35,8 @@
                                             // Thiết lập đường dẫn worker
                                             pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
                                             // Khởi tạo một phiên bản của PDF.js
-                                            pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
+                                            pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf)
+                                            {
                                                 var numPages = pdf.numPages;
                                                 var pdfImagesContainer = document.getElementById('pdfImages');
                                                 // Lặp qua từng trang và chuyển đổi thành hình ảnh
