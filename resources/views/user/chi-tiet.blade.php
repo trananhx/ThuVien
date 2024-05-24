@@ -30,34 +30,27 @@
                                         <script>
                                             // Đường dẫn tới file PDF
                                             var pdfUrl =$('#linkFile').val();
-
                                             // Đường dẫn tới file pdf.worker.js
                                             var workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
-
                                             // Thiết lập đường dẫn worker
                                             pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
-
                                             // Khởi tạo một phiên bản của PDF.js
                                             pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
                                                 var numPages = pdf.numPages;
                                                 var pdfImagesContainer = document.getElementById('pdfImages');
-
                                                 // Lặp qua từng trang và chuyển đổi thành hình ảnh
                                                 for (var pageNumber = 1; pageNumber <= numPages; pageNumber++) {
                                                     pdf.getPage(pageNumber).then(function(page) {
                                                         var viewport = page.getViewport({ scale: 1.0 });
-
                                                         // Tạo một thẻ canvas cho mỗi trang
                                                         var canvas = document.createElement('canvas');
                                                         var context = canvas.getContext('2d');
                                                         canvas.width = viewport.width;
                                                         canvas.height = viewport.height;
-
                                                         // Vẽ trang PDF lên canvas
                                                         page.render({ canvasContext: context, viewport: viewport }).promise.then(function() {
                                                             // Chuyển đổi canvas thành hình ảnh
                                                             var imageDataUrl = canvas.toDataURL('image/png');
-
                                                             // Hiển thị hình ảnh trên trang web
                                                             var img = document.createElement('img');
                                                             img.src = imageDataUrl;
