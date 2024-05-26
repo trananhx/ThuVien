@@ -26,7 +26,7 @@
                             <div class="doc-img">
                                 <a href="{{route('user.chiTietTaiLieu').'?postId='.$post->id}}">
                                     <img class="img-fluid" alt="User Image" style="width: auto; height: 149px"
-                                         src="{{$post->hinh_anh?$post->hinh_anh:'assets/img/doctors/doctor-01.jpg'}}">
+                                        src="{{$post->hinh_anh?$post->hinh_anh:'assets/img/doctors/doctor-01.jpg'}}">
                                     @if($post->trang_thai!=1)
                                         <div class="hetHan  text-center">
                                             <h3 style="color: red; margin-top: 55%">Tạm hết</h3>
@@ -64,7 +64,7 @@
 {{--                                        @endif--}}
 {{--                                    </div>--}}
                                     <div class="col-12"><a href="{{route('user.chiTietTaiLieu').'?postId='.$post->id}}"
-                                                          class="btn book-btn">Chi tiết</a>
+                                                        class="btn book-btn">Chi tiết</a>
                                     </div>
                                 </div>
                             </div>
