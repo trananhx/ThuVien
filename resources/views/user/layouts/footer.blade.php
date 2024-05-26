@@ -25,7 +25,9 @@
                             <img src="https://bmtu.edu.vn/images/logo-white.png" alt="logo">
                         </div>
                         <div class="footer-about-content">
-                            <p>THƯ VIỆN TRƯỜNG ĐẠI HỌC Y DƯỢC BUÔN MA THUỘT - © All rights reserved. Made by Trần Anh. 22YC2</p>
+                            <p>THƯ VIỆN TRƯỜNG ĐẠI HỌC Y DƯỢC BUÔN MA THUỘT
+                                - © All rights reserved. Made by Trần Anh. 22YC2</p>
+
                         </div>
                         <div class="footer-widget footer-contact mt-4">
                             <h2 class="footer-title footer-title-two">Địa chỉ</h2>
