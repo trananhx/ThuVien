@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="news-five"
-                     style="background:url('https://png.pngtree.com/thumb_back/fw800/background/20230702/pngtree-educational-materials-3d-render-for-back-to-school-image_3728180.jpg')">
+                    style="background:url('https://png.pngtree.com/thumb_back/fw800/background/20230702/pngtree-educational-materials-3d-render-for-back-to-school-image_3728180.jpg')">
                     <div class="news-five-head aos" data-aos="fade-up">
                         <h2>BMTU Library</h2>
                         <p style="color:blue"></p>
