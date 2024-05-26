@@ -79,7 +79,7 @@
                             @if(substr($post->link_file, -4) === ".pdf"||substr($post->link_file, -4) === ".doc"||substr($post->link_file, -4) === ".docx")
                                     <div class="blog-info clearfix">
                                         @if($post->trang_thai==1)
-                                            <a href="{{$post->link_file}}" target="_blank" class="btn btn-outline-success book-btn">Tải xuống</a>
+                                            <!-- <a href="{{$post->link_file}}" target="_blank" class="btn btn-outline-success book-btn">Tải xuống</a> -->
                                         @else
                                             <a disabled="disabled" style="cursor: not-allowed" class="btn btn-warning">Tài liệu ngừng hoạt động</a>
                                         @endif
@@ -87,7 +87,7 @@
                             @else
                                 <div class="blog-info clearfix">
                                     @if($post->trang_thai==1)
-                                        <a href="{{$post->link_file}}" target="_blank" class="btn btn-outline-success book-btn">Tải xuống</a>
+                                        <!-- <a href="{{$post->link_file}}" target="_blank" class="btn btn-outline-success book-btn">Tải xuống</a> -->
                                     @else
                                         <a disabled="disabled" style="cursor: not-allowed" class="btn btn-warning">Tài liệu ngừng hoạt động</a>
                                     @endif
