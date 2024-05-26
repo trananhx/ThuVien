@@ -25,7 +25,7 @@
                                     @if(substr($post->link_file, -4) === ".pdf")
                                         <canvas id="pdfCanvas"></canvas>
                                         <input type="hidden" id="linkFile" value="{{$post->link_file}}">
-                                    <div id="pdfImages"></div>
+                                    <div id="pdfImages" style="height:600px; max-height: 90vh"></div>
 
                                         <script>
                                             // Đường dẫn tới file PDF
