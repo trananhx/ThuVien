@@ -298,7 +298,8 @@
         opacity: 1;
         z-index: 999;
     }
-    .pagination{
+    .pagination
+    {
         overflow: scroll !important;
     }
 </style>
