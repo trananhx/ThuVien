@@ -20,7 +20,7 @@
                                 </div>
                             @endif
                             <h3 class="blog-title">{{$post->ten_tai_lieu}}</h3>
-                            <div class="blog-info">
+                            <div class="blog-info" style="overflow: scroll;">
                                 @if(substr($post->link_file, -4) === ".pdf"||substr($post->link_file, -4) === ".doc"||substr($post->link_file, -4) === ".docx")
                                     @if(substr($post->link_file, -4) === ".pdf")
                                         <canvas id="pdfCanvas"></canvas>
