@@ -129,10 +129,19 @@
                             </div>
                             <div class="card-body">
                                 <ul class="tags">
-                                <p style="color:blue">Thư viện là kho tàng chứa tất cả của cải tinh thần của loài người. (G.V.Leibniz)</p>
-                                </ul>
+                                    <?php
+                                    $random_quotes = array(
+                                        "Kiến thức là sức mạnh. (Francis Bacon)",
+                                        "Sống là học, học là sống. (Nguyễn Hồng Sơn)",
+                                        "Chúng ta học suốt cuộc đời, không chỉ ở trường học. (Walt Disney)",
+                                        "Thư viện là kho tàng chứa tất cả của cải tinh thần của loài người. (G.V.Leibniz)"
+                                    );
+                                    $random_quote = $random_quotes[array_rand($random_quotes)];
+                                    echo "<p style='color:blue'>" . $random_quote . "</p>";
+                                    ?>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
                         <div class="card blog-share clearfix">
                             <div class="card-header">
                                 <h4 class="card-title">Tags</h4>
