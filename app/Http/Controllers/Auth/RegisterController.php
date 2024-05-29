@@ -60,7 +60,7 @@ class RegisterController extends Controller
             'password.confirmed' => 'Mật khẩu phải giống mật khẩu xác nhận',
             'password.*' => 'Mật khẩu ít nhất phải 6 kí tự',
             'sdt.*' => 'Số điện thoại phải từ 8 - 10 số',
-            'mssv.*' => 'Mã số sinh viên ít nhất phải 3 k tự'
+            'mssv.*' => 'Mã số sinh viên ít nhất phải 3 kí tự'
         ]);
     }
 
