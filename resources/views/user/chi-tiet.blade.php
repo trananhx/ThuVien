@@ -19,6 +19,7 @@
                                             class="img-fluid"></a>
                                 </div>
                             @endif
+
                             <h3 class="blog-title">{{$post->ten_tai_lieu}}</h3>
                             <div class="blog-info">
                                 @if(substr($post->link_file, -4) === ".pdf"||substr($post->link_file, -4) === ".doc"||substr($post->link_file, -4) === ".docx")
@@ -62,6 +63,10 @@
                                                 }
                                             });
                                         </script>
+                                    @else
+                                        <iframe style="width: 100%; height: 70vh; min-height: 300px;"
+                                                src="{{'https://view.officeapps.live.com/op/view.aspx?src='.$post->link_file}}}"></iframe>
+                                    @endif
                                 @endif
                             </div>
                             @if(substr($post->link_file, -4) === ".pdf"||substr($post->link_file, -4) === ".doc"||substr($post->link_file, -4) === ".docx")
