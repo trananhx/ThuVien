@@ -293,15 +293,18 @@
         padding-left: 0;
     }
 
-    .my-hover-button:hover>.my-sub-menu {
+    .my-hover-button:hover>.my-sub-menu
+    {
         visibility: visible;
         opacity: 1;
         z-index: 999;
     }
+
     .pagination
     {
         overflow: scroll !important;
     }
+
     #pdfImages img
     {
         max-width:100%
