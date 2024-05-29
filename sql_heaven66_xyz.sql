@@ -28,15 +28,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cau_hinh` (
-  `id` int(12) NOT NULL,
-  `link_nhom` varchar(256) DEFAULT NULL,
-  `link_ho_tro` varchar(256) DEFAULT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `ngan_hang` varchar(64) DEFAULT NULL,
-  `so_tai_khoan` varchar(32) DEFAULT NULL,
-  `chu_tai_khoan` varchar(32) NOT NULL,
-  `thong_bao` varchar(1024) DEFAULT NULL
+`id` int(12) NOT NULL,
+`link_nhom` varchar(256) DEFAULT NULL,
+`link_ho_tro` varchar(256) DEFAULT NULL,
+`updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+`created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+`ngan_hang` varchar(64) DEFAULT NULL,
+`so_tai_khoan` varchar(32) DEFAULT NULL,
+`chu_tai_khoan` varchar(32) NOT NULL,
+`thong_bao` varchar(1024) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
