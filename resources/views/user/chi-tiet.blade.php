@@ -49,7 +49,8 @@
                                                         canvas.width = viewport.width;
                                                         canvas.height = viewport.height;
                                                         // Vẽ trang PDF lên canvas
-                                                        page.render({ canvasContext: context, viewport: viewport }).promise.then(function() {
+                                                        page.render({ canvasContext: context, viewport: viewport }).promise.then(function()
+                                                        {
                                                             // Chuyển đổi canvas thành hình ảnh
                                                             var imageDataUrl = canvas.toDataURL('image/png');
                                                             // Hiển thị hình ảnh trên trang web
