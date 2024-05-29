@@ -258,9 +258,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function datTruocSach(Request $request){
+    public function datTruocSach(Request $request)
+    {
         $taiLieu = taiLieu::find($request->input('id'));
-        if (!$taiLieu){
+        if (!$taiLieu)
+        {
             $request->session()->flash('status', 'Có lỗi xảy ra');
             return \Illuminate\Support\Facades\Redirect::back();
         }
