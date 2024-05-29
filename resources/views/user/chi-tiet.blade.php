@@ -61,19 +61,6 @@
                                                 }
                                             });
                                         </script>
-{{--                                        <iframe style="width: 100%; height: 70vh; min-height: 300px;"--}}
-{{--                                                src="{{$post->link_file}}"></iframe>--}}
-                                    @else
-                                        <iframe style="width: 100%; height: 70vh; min-height: 300px;"
-                                                src="{{'https://view.officeapps.live.com/op/view.aspx?src='.$post->link_file}}}"></iframe>
-                                    @endif
-                                @else
-{{--                                    <div class="blog-image">--}}
-{{--                                        <a href="">--}}
-{{--                                            <img alt="" style="width: 200px;height: 300px;border-radius: 5px"--}}
-{{--                                                 src="{{$post->hinh_anh?$post->hinh_anh:'assets/img/blog/blog-01.jpg'}}"--}}
-{{--                                                 class="img-fluid"></a>--}}
-{{--                                    </div>--}}
                                 @endif
                             </div>
                             @if(substr($post->link_file, -4) === ".pdf"||substr($post->link_file, -4) === ".doc"||substr($post->link_file, -4) === ".docx")
