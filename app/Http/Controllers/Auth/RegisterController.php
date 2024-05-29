@@ -48,20 +48,22 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        return Validator::make($data,
+        [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'sdt' => ['required', 'numeric', 'digits_between:8,10'],
-            'mssv' => ['required', 'string', 'min:3', 'unique:users,mssv'],
-        ], [
+            'mssv' => ['required', 'string', 'min:8', 'unique:mssv'],
+        ],
+        [
             'email.*' => 'Email không hợp lệ hoặc đã bị người khác dùng',
             'name.*' => 'Tên không hợp lệ',
             'password.confirmed' => 'Mật khẩu phải giống mật khẩu xác nhận',
             'password.*' => 'Mật khẩu ít nhất phải 6 kí tự',
             'sdt.*' => 'Số điện thoại phải từ 8 - 10 số',
-            'mssv.unique' => 'Mã số sinh viên không hợp lệ hoặc đã bị người khác dùng',
-            'mssv.*' => 'Mã số sinh viên ít nhất phải 3 kí tự'
+            'mssv.unique' => 'Mã số sinh viên không hợp lệ hoặc đã có người dùng',
+            'mssv.*' => 'Mã số sinh viên ít nhất phải 8 kí tự'
         ]);
     }
 
