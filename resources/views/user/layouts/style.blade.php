@@ -302,4 +302,8 @@
     {
         overflow: scroll !important;
     }
+    #pdfImages img
+    {
+        max-width:100%
+    }
 </style>
