@@ -125,6 +125,16 @@
                         </div>
                         <div class="card blog-share clearfix">
                             <div class="card-header">
+                                <h4 class="card-title">Tips</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="tags">
+                                <p style="color:blue">Thư viện là kho tàng chứa tất cả của cải tinh thần của loài người. (G.V.Leibniz)</p>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card blog-share clearfix">
+                            <div class="card-header">
                                 <h4 class="card-title">Tags</h4>
                             </div>
                             <div class="card-body">
