@@ -26,9 +26,7 @@
                         </div>
                         <div class="footer-about-content">
                             <p>THƯ VIỆN TRƯỜNG ĐẠI HỌC Y DƯỢC BUÔN MA THUỘT</p>
-                            <p>© All rights reserved. Made by Trần Anh. 22YC2</p>
-                            <p>Special thanks to Ngọc Tuyền for their support and contribution.</p>
-
+                            <p>© All rights reserved. Made by Trần Anh and Ngọc Tuyền _ 22YC2</p>
                         </div>
                         <div class="footer-widget footer-contact mt-4">
                             <h2 class="footer-title footer-title-two">Địa chỉ</h2>
