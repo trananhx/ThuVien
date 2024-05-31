@@ -216,7 +216,8 @@ class UserController extends Controller
         return [
             'rc' => '0',
             'rd' => 'Lấy dữ liệu thành công',
-            'question' => [
+            'question' =>
+            [
                 'id' => $question->id,
                 'content' => $question->content
             ],
