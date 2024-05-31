@@ -178,7 +178,8 @@ class UserController extends Controller
 
     }
 
-    public function getThongTinVote(Request $request){
+    public function getThongTinVote(Request $request)
+    {
         $question = Question::where('is_select', true)->first();
         if ($question == null)
             return json_encode([
@@ -189,18 +190,23 @@ class UserController extends Controller
         $totalVote = DB::table('user_vote')->join('vote', 'user_vote.vote_id', '=', 'vote.id')
             ->where('vote.question_id', '=', $question->id)->get()->count();
 
-        $votes = $question->votes->map(function ($item) use ($totalVote) {
+        $votes = $question->votes->map(function ($item) use ($totalVote)
+        {
             $voteCount = UserVote::where('vote_id', $item->id)->get()->count();
-            if ($totalVote > 0){
-                return [
+            if ($totalVote > 0)
+            {
+                return
+                [
                     'id' => $item->id,
                     'name' => $item->name,
                     'percent' => round(($voteCount / $totalVote)*100),
                     'count' => $voteCount
                 ];
             }
-            else {
-                return [
+            else
+            {
+                return
+                [
                     'id' => $item->id,
                     'name' => $item->name,
                     'percent' => 0,
@@ -213,7 +219,8 @@ class UserController extends Controller
         if ($request->user())
             $currentSelect = $request->user()->votes()->where('question_id', $question->id)->first();
 
-        return [
+        return
+        [
             'rc' => '0',
             'rd' => 'Lấy dữ liệu thành công',
             'question' =>
@@ -226,27 +233,31 @@ class UserController extends Controller
             'user_select' => $currentSelect
         ];
     }
+
     // Chặn user k login được vote
     public function thucHienVote(Request $request){
         $question_id = $request->input('question_id', -1);
         $vote_id = $request->input('vote_id', -1);
         $question = Question::find($question_id);
         $vote = Vote::find($vote_id);
-        if ($question == null || $vote == null){
+        if ($question == null || $vote == null)
+        {
             return json_encode([
                 'rc' => '-1',
                 'rd' => 'Không tìm thấy question hoặc vote'
             ]);
         }
 
-        if ($vote->question_id != $question->id){
+        if ($vote->question_id != $question->id)
+        {
             return json_encode([
                 'rc' => '-1',
                 'rd' => 'Vote không thuộc câu hỏi này'
             ]);
         }
 
-        $voteArr = $question->votes->filter(function (Vote $myVote, int $key) use ($request) {
+        $voteArr = $question->votes->filter(function (Vote $myVote, int $key) use ($request)
+        {
             return $myVote->users->where('id', $request->user()->id);
         });
 
