@@ -31,16 +31,14 @@ class ForgotPasswordController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-//    public function index(Request $request){
-//        return view('auth.passwords.email');
-//    }
-//
-    public function sendReset(Request $request){
+    public function sendReset(Request $request)
+    {
         $data = $request->validate([
             'email' => 'required|email|exists:users',
         ], [
