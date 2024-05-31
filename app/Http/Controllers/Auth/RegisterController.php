@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'sdt' => ['required', 'numeric', 'digits_between:8,10'],
-            'mssv' => ['required', 'string', 'min:8', 'unique:users'],
+            'mssv' => ['required', 'string', 'min:8', 'unique:users,ma_sv'],
         ],
         [
             'email.*' => 'Email không hợp lệ hoặc đã bị người khác dùng',
