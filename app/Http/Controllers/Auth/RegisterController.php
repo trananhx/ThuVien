@@ -57,12 +57,12 @@ class RegisterController extends Controller
             'mssv' => ['required', 'string', 'min:8', 'unique:users,ma_sv'],
         ],
         [
-            'email.*' => 'Email không hợp lệ hoặc đã bị người khác dùng',
-            'name.*' => 'Tên không hợp lệ',
-            'password.confirmed' => 'Mật khẩu phải giống mật khẩu xác nhận',
-            'password.*' => 'Mật khẩu ít nhất phải 6 kí tự',
-            'sdt.*' => 'Số điện thoại phải từ 8 - 10 số',
-            'mssv.*' => 'Mã số sinh viên không hợp lệ hoặc đã có người dùng'
+            'email.*' => 'Email không hợp lệ hoặc đã bị người khác dùng.',
+            'name.*' => 'Tên không hợp lệ.',
+            'password.confirmed' => 'Mật khẩu phải giống mật khẩu xác nhận.',
+            'password.*' => 'Mật khẩu ít nhất phải 6 kí tự.',
+            'sdt.*' => 'Số điện thoại phải từ 8 - 10 số.',
+            'mssv.*' => 'Mã số sinh viên không hợp lệ hoặc đã có người dùng.'
         ]);
     }
 
@@ -72,6 +72,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+
     protected function create(array $data)
     {
         return User::create([
