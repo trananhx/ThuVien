@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -25,7 +26,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -36,4 +37,14 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    protected function validationErrorMessages()
+    {
+        return [
+            'token.*' => 'Token không hợp lệ',
+            'email.*' => 'Email không trùng khớp',
+            'password.*' => 'Mật khẩu không hợp lệ'
+        ];
+    }
+
 }

@@ -13,13 +13,14 @@
 <link rel="stylesheet" href="assets/css/aos.css">
 <!-- Main CSS -->
 <link rel="stylesheet" href="assets/css/style.css">
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
     * {
         font-family: 'Source Sans Pro', sans-serif
     }
 
-    .text-right {
+    .text-right
+    {
         text-align: right;
     }
 
@@ -111,7 +112,7 @@
         cursor: not-allowed;
     }
 
-    .hetHan:hover {
+    .doc-img:hover .hetHan {
         scale: 1.1;
     }
 
@@ -292,9 +293,20 @@
         padding-left: 0;
     }
 
-    .my-hover-button:hover>.my-sub-menu {
+    .my-hover-button:hover>.my-sub-menu
+    {
         visibility: visible;
         opacity: 1;
         z-index: 999;
+    }
+
+    .pagination
+    {
+        overflow: scroll !important;
+    }
+
+    #pdfImages img
+    {
+        max-width:100%
     }
 </style>

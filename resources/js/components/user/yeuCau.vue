@@ -104,6 +104,11 @@
                         <label>Tên sách<span class="required" style="color: red;text-align: left">*</span></label>
                         <el-input v-model="dataYeuCau.noi_dung" clearable />
                     </el-col>
+
+                    <el-col :span="24" class="text-left mt-3">
+                        <label>Mã vạch<span class="required" style="color: red;text-align: left">*</span></label>
+                        <el-input v-model="ma_vach" clearable />
+                    </el-col>
                 </el-row>
                 <div class="d-flex justify-content-center my-4">
                     <el-button type="primary" @click="xacNhanThemMoiGiaHan">Gửi đi</el-button>
@@ -175,8 +180,9 @@ export default {
             dataYeuCau:
             {
                 tieu_de: '',
-                noi_dung: ''
+                noi_dung: '',
             },
+            ma_vach: '',
             dataThamDo: {
                 questionId: '',
                 content: '',
@@ -198,6 +204,7 @@ export default {
             this.tab = tabName;
             this.dataYeuCau.tieu_de = '';
             this.dataYeuCau.noi_dung = '';
+            this.ma_vach = '';
             // console.log(this.dataThamDo);
             if (this.tab === 'gia-han')
                 this.dataYeuCau.tieu_de = 'Yêu cầu gia hạn mượn sách online';
@@ -235,7 +242,7 @@ export default {
         xacNhanThemMoiGiaHan()
         {
             console.log('Xác nhận gia hạn')
-            if(!this.dataYeuCau.tieu_de || this.dataYeuCau.tieu_de=='' || !this.dataYeuCau.noi_dung || this.dataYeuCau.noi_dung=='')
+            if(!this.dataYeuCau.tieu_de || this.dataYeuCau.tieu_de=='' || !this.dataYeuCau.noi_dung || this.dataYeuCau.noi_dung=='' || this.ma_vach == '')
             {
                 this.thongBao('error','Vui lòng bổ sung thông tin.')
                 return;
@@ -243,7 +250,7 @@ export default {
             var url = '/them-yeu-cau-gia-han'
             this.loading.status = true;
             this.loading.text = 'Loading...'
-            rest_api.post(url, this.dataYeuCau).then(
+            rest_api.post(url, {...this.dataYeuCau, ma_vach: this.ma_vach}).then(
                 response => {
                     if (response.data.rc == 0)
                     {

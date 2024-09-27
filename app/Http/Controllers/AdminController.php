@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\chuongTrinhDaoTao;
 use App\Mail\TraLoiYeuCau;
 use App\monHoc;
+use App\Question;
 use App\taiLieu;
 use App\thongBao;
 use App\User;
+use App\UserVote;
+use App\Vote;
 use App\YeuCau;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Hash;
 
 class AdminController extends Controller
 {
@@ -48,6 +51,11 @@ class AdminController extends Controller
     public function getUser()
     {
         return view('admin.nguoi-dung');
+    }
+
+    public function getThamDo()
+    {
+        return view('admin.tham-do');
     }
 
     public function suaChuongTrinhDaoTao(Request $request)
@@ -88,11 +96,16 @@ class AdminController extends Controller
             $check->mo_ta = $req['mo_ta'];
             $check->noi_dung = $req['noi_dung'];
             $check->trang_thai = $req['trang_thai'];
-            if ($request->file('tai_lieu')) {
-                $taiLieu = $request->file('tai_lieu');
-                $fileTaiLieu = '/files/taiLieu/' . $slug . '-' . uniqid() . '.' . $taiLieu->extension();
-                $taiLieu->move(public_path('files/taiLieu'), $fileTaiLieu);
-                $check->link_file = $fileTaiLieu;
+            if($req['nguon']==1){
+
+                if ($request->file('tai_lieu')) {
+                    $taiLieu = $request->file('tai_lieu');
+                    $fileTaiLieu = '/files/taiLieu/' . $slug . '-' . uniqid() . '.' . $taiLieu->extension();
+                    $taiLieu->move(public_path('files/taiLieu'), $fileTaiLieu);
+                    $check->link_file = $fileTaiLieu;
+                }
+            }else{
+                $check->link_file = $req['link_file'];
             }
             if ($request->file('anh_bia')) {
                 $anhBia = $request->file('anh_bia');
@@ -292,22 +305,33 @@ class AdminController extends Controller
     {
         Log::info('Thêm tài liệu');
         $req = $request->all();
+        Log::info($req);
         $fileTaiLieu = null;
         $fileAnhBia = null;
+        $dataCreat = null;
         $slug = Str::slug($req['ten_tai_lieu']);
         Log::info('Slug là:');
         Log::info($slug);
-        if ($request->file('tai_lieu')) {
-            $taiLieu = $request->file('tai_lieu');
-            $fileTaiLieu = '/files/taiLieu/' . $slug . '-' . uniqid() . '.' . $taiLieu->extension();
-            $taiLieu->move(public_path('files/taiLieu'), $fileTaiLieu);
+        if($req['nguon']==1){
+            Log::info('Tài liệu nhập từ máy');
+            if ($request->file('tai_lieu')) {
+                $taiLieu = $request->file('tai_lieu');
+                $fileTaiLieu = '/files/taiLieu/' . $slug . '-' . uniqid() . '.' . $taiLieu->extension();
+                $taiLieu->move(public_path('files/taiLieu'), $fileTaiLieu);
+            }
+        }else{
+            Log::info('Tài liệu nhập từ link');
+            $fileTaiLieu = $req['link_file'];
+
         }
         if ($request->file('anh_bia')) {
             $anhBia = $request->file('anh_bia');
             $fileAnhBia = '/files/anhBia/' . $slug . '-' . uniqid() . '.' . $anhBia->extension();
             $anhBia->move(public_path('files/anhBia'), $fileAnhBia);
         }
+        Log::info('$fileTaiLieu:' .$fileTaiLieu);
         try {
+            Log::info('case 1');
             $dataCreat = taiLieu::create([
                 'mon_hoc_chinh' => $req['mon_hoc_chinh'],
                 'mon_hoc_phu' => $req['mon_hoc_phu'],
@@ -504,6 +528,8 @@ class AdminController extends Controller
         $req = $request->all();
         $check = User::where('id', $req['id'])->first();
         if ($check) {
+            $check->votes()->detach();
+            $check->yeucau()->delete();
             $check->delete();
             $res = [
                 'rc' => 0,
@@ -665,12 +691,10 @@ class AdminController extends Controller
             ];
         }
         return json_encode($res);
-
     }
 
     public function layDanhSachTaiLieu(Request $request)
     {
-
         $req = $request->all();
         $list = taiLieu::where('ten_tai_lieu', 'like', '%' . $req['key'] . '%');
 //        if (isset($req['ctdt'])&&$req['ctdt']!=''){
@@ -691,5 +715,207 @@ class AdminController extends Controller
             ];
         }
         return json_encode($res);
+    }
+
+//    public function removeSelectOtherQuestion($question){
+//        $select = Question::where('is_select', true)->get();
+//        if ($select == null && !$question->is_select){
+//            $question->is_select = true;
+//            $question->save();
+//            return;
+//        }
+//        if ($question->is_select){
+//            // Revoke all select
+//            foreach ($select as $item){
+//                if ($item->id != $question->id){
+//                    $item->is_select = false;
+//                    $item->save();
+//                }
+//            }
+//        }
+//    }
+
+    public function themThamDo(Request $request){
+        $cauHoi = $request->input("tieu_de", "");
+        $dsLuaChon = $request->input('list_lua_chon', []);
+        if ($dsLuaChon == [] || $cauHoi == ""){
+            $res = [
+                'rc' => '1',
+                'rd' => 'Vui lòng thêm nội dung câu hỏi và lựa chọn'
+            ];
+            return json_encode($res);
+        }
+
+        $select = $request->input('is_select');
+
+        $q = Question::create([
+            'content' => $cauHoi,
+            'is_select' => $select,
+        ]);
+
+        $list = [];
+        foreach ($dsLuaChon as $luaChon){
+            $list []= new Vote([
+                'name' => $luaChon,
+                'question_id' => $q->id
+            ]);
+        }
+
+        $q->votes()->saveMany($list);
+//        $this->removeSelectOtherQuestion($q);
+
+        $res = [
+            'rc' => '0',
+            'data' => 'Lưu thành công câu hỏi',
+        ];
+        return json_encode($res);
+    }
+
+
+    public function layDanhSachThamDo(Request $request){
+        $req = $request->all();
+        if (!isset($req['key']))
+            $req['key'] = '';
+        $data = Question::with('votes')->with('users')->where('content', 'like', '%' . $req['key'] . '%')
+            ->orderBy('created_at', 'DESC')->skip($req['start'])->take($req['limit'])->get();
+        $count = Question::all()->count();
+//        $data->map->votes = $data->votes->map(function($item){
+//            $item->total = $item->users()->count;
+//            return $item;
+//        });
+        $data = $data->map(function($question){
+           $question->votes = $question->votes->map(function($vote){
+                    $vote->total = $vote->users()->count();
+                    return $vote;
+               });
+           return $question;
+        });
+//        dd($data);
+        if ($data->count() != 0) {
+            $res = [
+                'rc' => '0',
+                'data' => $data,
+                'total' => $count
+            ];
+        } else {
+            $res = [
+                'rc' => '1',
+                'rd' => 'Không tìm thấy bản ghi nào'
+            ];
+        }
+
+        return json_encode($res);
+    }
+
+    // Chua fix
+    public function suaThamDo(Request $request){
+        $req = $request->all();
+        $check = Question::where('id', $req['id'])->first();
+        if ($check) {
+            $check->content = $req['content'];
+            $check->is_select = $req['is_select'];
+            $check->save();
+
+            $luaChons = $req['votes'];
+            $votes = $check->votes;
+            foreach ($luaChons as $key => $luaChon){
+                if ($luaChon['id'] == 0){
+                    Vote::create([
+                        'name' => $luaChon['name'],
+                        'question_id' => $check->id,
+                    ]);
+                    unset($luaChons[$key]);
+                }
+            }
+
+            foreach ($votes as $vote){
+                $isHave = false;
+                foreach ($luaChons as $luaChon) {
+                    if ($vote->id == $luaChon['id'] && !$isHave){
+                        $isHave = true;
+                        $vote->name = $luaChon['name'];
+                        $vote->save();
+                        break;
+                    }
+                }
+                if (!$isHave){
+                    $vote->users()->detach();
+                    $vote->delete();
+                }
+            }
+
+
+//            $this->removeSelectOtherQuestion($check);
+
+            $res = [
+                'rc' => 0,
+                'rd' => 'Cập nhật thành công',
+                'data' => $check
+            ];
+        } else {
+            $res = [
+                'rc' => -1,
+                'rd' => 'Không tìm thấy dữ liệu',
+                'data' => null
+            ];
+        }
+        return json_encode($res);
+    }
+
+    public function xoaThamDo(Request $request){
+        $req = $request->all();
+        $check = Question::where('id', $req['id'])->first();
+        if ($check) {
+            $votes = $check->votes;
+            foreach ($votes as $vote){
+                $vote->users()->detach();
+                $vote->delete();
+            }
+//            $isSelect = $check->is_select;
+            $check->delete();
+
+//            if ($isSelect){
+//                $firstQuestion = Question::first();
+//                $this->removeSelectOtherQuestion($firstQuestion);
+//            }
+
+            $res = [
+                'rc' => 0,
+                'rd' => 'Xóa thành công',
+                'data' => $check
+            ];
+        } else {
+            $res = [
+                'rc' => -1,
+                'rd' => 'Không tìm thấy dữ liệu',
+                'data' => null
+            ];
+        }
+        return json_encode($res);
+    }
+
+    public function resetMatKhau(Request $request){
+        $req = $request->all();
+        $user = User::find($req['id']);
+        if ($user == null) {
+            return json_encode([
+                'rc' => -1,
+                'rd' => 'Không tìm thấy user',
+                'data' => null
+            ]);
+        }
+
+        $user->fill([
+            'password' => Hash::make("123456Aa@")
+        ]);
+
+        $user->setRememberToken(Str::random(60));
+        $user->save();
+
+        return json_encode([
+            'rc' => 0,
+            'rd' => 'Reset mật khẩu thành 123456Aa@ thành công',
+            'data' => null,
+        ]);
     }
 }

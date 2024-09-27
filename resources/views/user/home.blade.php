@@ -26,28 +26,18 @@
                             <div class="doc-img">
                                 <a href="{{route('user.chiTietTaiLieu').'?postId='.$post->id}}">
                                     <img class="img-fluid" alt="User Image" style="width: auto; height: 149px"
-                                         src="{{$post->hinh_anh?$post->hinh_anh:'assets/img/doctors/doctor-01.jpg'}}">
+                                        src="{{$post->hinh_anh?$post->hinh_anh:'assets/img/doctors/doctor-01.jpg'}}">
                                     @if($post->trang_thai!=1)
                                         <div class="hetHan  text-center">
                                             <h3 style="color: red; margin-top: 55%">Tạm hết</h3>
                                         </div>
                                     @endif
                                 </a>
-                                {{--                                <a href="javascript:void(0)" class="fav-btn"> <i class="far fa-bookmark"></i>--}}
-                                {{--                                </a>--}}
                             </div>
                             <div class="pro-content">
-                                <h3 class="title"><a
-                                        href="{{route('user.chiTietTaiLieu').'?postId='.$post->id}}">{{$post->ten_tai_lieu}}</a>
+                                <h3 class="title"><a href="{{route('user.chiTietTaiLieu').'?postId='.$post->id}}">{{$post->ten_tai_lieu}}</a>
                                 </h3>
                                 <p class="speciality hien-1-dong" style="min-height: 0">{{$post->mo_ta}}</p>
-                                {{--                                <div class="rating"><i class="fas fa-star filled"></i>--}}
-                                {{--                                    <i class="fas fa-star filled"></i>--}}
-                                {{--                                    <i class="fas fa-star filled"></i>--}}
-                                {{--                                    <i class="fas fa-star filled"></i>--}}
-                                {{--                                    <i class="fas fa-star filled"></i>--}}
-                                {{--                                    <span class="d-inline-block average-rating">(17)</span>--}}
-                                {{--                                </div>--}}
                                 <ul class="available-info">
                                     <li><i class="fas fa-map-marker-alt"></i> {{$post->loai==1?'Đọc tại chỗ':'Mang về'}}
                                     </li>
@@ -56,15 +46,7 @@
                                     </li>
                                 </ul>
                                 <div class="row row-sm">
-                                    <div class="col-6">
-                                        @if($post->trang_thai==1)
-                                            <a href="{{$post->link_file}}" class="btn view-btn">Xem/Tải</a>
-                                        @else
-                                            <a style="cursor: not-allowed" class="btn view-btn">Tạm hết</a>
-                                        @endif
-                                    </div>
-                                    <div class="col-6"><a href="{{route('user.chiTietTaiLieu').'?postId='.$post->id}}"
-                                                          class="btn book-btn">Chi tiết</a>
+                                    <div class="col-12"><a href="{{route('user.chiTietTaiLieu').'?postId='.$post->id}}" class="btn book-btn">Chi tiết</a>
                                     </div>
                                 </div>
                             </div>

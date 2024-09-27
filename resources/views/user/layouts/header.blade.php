@@ -169,12 +169,18 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                         @if(Auth::user()->role==1)
-                        <a class="dropdown-item" href="{{route('admin.home')}}">
+                            <a class="dropdown-item" href="{{route('admin.home')}}">
                             <span class="me-2">
                                 <i class="fas fa-user-edit"></i>
                             </span>
-                            Quản lý
-                        </a>
+                                Quản lý
+                            </a>
+                            <a class="dropdown-item" href="{{route('user.thayDoiMatKhau')}}">
+                                 <span class="me-2">
+                                    <i class="fas fa-key"></i>
+                                </span>
+                                Đổi mật khẩu
+                            </a>
                         @else
                         <a class="dropdown-item" href="{{route('user.thayDoiMatKhau')}}">
                             <span class="me-2">

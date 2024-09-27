@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3674,6 +3674,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Ui_ESelect_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Ui/ESelect.vue */ "./resources/js/components/Ui/ESelect.vue");
 /* harmony import */ var k_progress__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! k-progress */ "./node_modules/k-progress/dist/k-progress.umd.min.js");
 /* harmony import */ var k_progress__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(k_progress__WEBPACK_IMPORTED_MODULE_6__);
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
 
 
@@ -3702,6 +3708,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(element_ui__WEBPACK_IMPORTED_MODU
         tieu_de: '',
         noi_dung: ''
       },
+      ma_vach: '',
       dataThamDo: {
         questionId: '',
         content: '',
@@ -3722,6 +3729,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(element_ui__WEBPACK_IMPORTED_MODU
       this.tab = tabName;
       this.dataYeuCau.tieu_de = '';
       this.dataYeuCau.noi_dung = '';
+      this.ma_vach = '';
       // console.log(this.dataThamDo);
       if (this.tab === 'gia-han') this.dataYeuCau.tieu_de = 'Yêu cầu gia hạn mượn sách online';
     },
@@ -3750,14 +3758,16 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(element_ui__WEBPACK_IMPORTED_MODU
     xacNhanThemMoiGiaHan: function xacNhanThemMoiGiaHan() {
       var _this2 = this;
       console.log('Xác nhận gia hạn');
-      if (!this.dataYeuCau.tieu_de || this.dataYeuCau.tieu_de == '' || !this.dataYeuCau.noi_dung || this.dataYeuCau.noi_dung == '') {
+      if (!this.dataYeuCau.tieu_de || this.dataYeuCau.tieu_de == '' || !this.dataYeuCau.noi_dung || this.dataYeuCau.noi_dung == '' || this.ma_vach == '') {
         this.thongBao('error', 'Vui lòng bổ sung thông tin.');
         return;
       }
       var url = '/them-yeu-cau-gia-han';
       this.loading.status = true;
       this.loading.text = 'Loading...';
-      _api_rest_api__WEBPACK_IMPORTED_MODULE_0__["default"].post(url, this.dataYeuCau).then(function (response) {
+      _api_rest_api__WEBPACK_IMPORTED_MODULE_0__["default"].post(url, _objectSpread(_objectSpread({}, this.dataYeuCau), {}, {
+        ma_vach: this.ma_vach
+      })).then(function (response) {
         if (response.data.rc == 0) {
           _this2.thongBao('success', 'Thêm yêu cầu thành công');
           setTimeout(function () {
@@ -4161,6 +4171,28 @@ var render = function render() {
         _vm.$set(_vm.dataYeuCau, "noi_dung", $$v);
       },
       expression: "dataYeuCau.noi_dung"
+    }
+  })], 1), _vm._v(" "), _c("el-col", {
+    staticClass: "text-left mt-3",
+    attrs: {
+      span: 24
+    }
+  }, [_c("label", [_vm._v("Mã vạch"), _c("span", {
+    staticClass: "required",
+    staticStyle: {
+      color: "red",
+      "text-align": "left"
+    }
+  }, [_vm._v("*")])]), _vm._v(" "), _c("el-input", {
+    attrs: {
+      clearable: ""
+    },
+    model: {
+      value: _vm.ma_vach,
+      callback: function callback($$v) {
+        _vm.ma_vach = $$v;
+      },
+      expression: "ma_vach"
     }
   })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "d-flex justify-content-center my-4"
@@ -104633,7 +104665,7 @@ new Vue({
 
 /***/ }),
 
-/***/ 7:
+/***/ 8:
 /*!********************************************!*\
   !*** multi ./resources/js/user-yeu-cau.js ***!
   \********************************************/

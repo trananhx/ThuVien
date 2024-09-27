@@ -15,6 +15,7 @@ mix
     .js('resources/js/admin-quan-ly-mon-hoc.js', 'public/js/admin-quan-ly-mon-hoc.js')
     .js('resources/js/admin-quan-ly-tai-lieu.js', 'public/js/admin-quan-ly-tai-lieu.js')
     .js('resources/js/admin-quan-ly-thong-bao.js', 'public/js/admin-quan-ly-thong-bao.js')
+    .js('resources/js/admin-quan-ly-tham-do.js', 'public/js/admin-quan-ly-tham-do.js')
     .js('resources/js/admin-quan-ly-yeu-cau.js', 'public/js/admin-quan-ly-yeu-cau.js')
     .js('resources/js/admin-quan-ly-nguoi-dung.js', 'public/js/admin-quan-ly-nguoi-dung.js')
     .js('resources/js/user-doi-mat-khau.js', 'public/js/user-doi-mat-khau.js')

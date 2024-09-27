@@ -33,12 +33,17 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $casts = ['email_verified_at' => 'datetime', ];
 
     public function votes(){
         return $this->belongsToMany(Vote::class, 'user_vote', 'user_id', 'vote_id', 'id', 'id');
     }
 
+    public function yeucau(){
+        return $this->hasMany(YeuCau::class, 'user_id', 'id');
+    }
+
+    public function sendPasswordResetNotification($token){
+        $this->notify(new \App\Notifications\CustomResetPasswordNotification($token));
+    }
 }

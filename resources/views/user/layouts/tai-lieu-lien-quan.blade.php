@@ -29,15 +29,15 @@
                                 <li><i class="far fa-clock"></i> {{$taiLieu->created_at}}</li>
                             </ul>
                             <div class="row row-sm">
-                                <div class="col-6">
-                                    @if($taiLieu->trang_thai==1)
-                                        <a href="{{$taiLieu->link_file}}" target="_blank"
-                                           class="btn view-btn">Xem/Tải</a>
-                                    @else
-                                        <a style="cursor: not-allowed" class="btn view-btn">Tạm hết</a>
-                                    @endif
-                                </div>
-                                <div class="col-6"><a href="{{route('user.chiTietTaiLieu').'?postId='.$taiLieu->id}}"
+{{--                                <div class="col-6">--}}
+{{--                                    @if($taiLieu->trang_thai==1)--}}
+{{--                                        <a href="{{$taiLieu->link_file}}" target="_blank"--}}
+{{--                                           class="btn view-btn">Xem/Tải</a>--}}
+{{--                                    @else--}}
+{{--                                        <a style="cursor: not-allowed" class="btn view-btn">Tạm hết</a>--}}
+{{--                                    @endif--}}
+{{--                                </div>--}}
+                                <div class="col-12"><a href="{{route('user.chiTietTaiLieu').'?postId='.$taiLieu->id}}"
                                                       class="btn book-btn">Chi tiết</a>
                                 </div>
                             </div>

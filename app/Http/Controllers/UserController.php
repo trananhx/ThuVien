@@ -42,7 +42,7 @@ class UserController extends Controller
     public function getHome()
     {
         $list_ctdt = chuongTrinhDaoTao::with('monHoc')->orderBy('created_at', 'ASC')->get();
-        $thong_bao = thongBao::where('id', '>', 0)->paginate(5, ['*'], 'noti');;
+        $thong_bao = thongBao::where('id', '>', 0)->orderBy('created_at', 'DESC')->paginate(5, ['*'], 'noti');
         $list_new = taiLieu::with('monHocChinh')->paginate(12, ['*'], 'news');
         return view('user.home', compact(['list_new', 'list_ctdt', 'thong_bao']));
     }
@@ -50,7 +50,7 @@ class UserController extends Controller
     public function getThayDoiMatKhau()
     {
         $list_ctdt = chuongTrinhDaoTao::with('monHoc')->orderBy('created_at', 'ASC')->get();
-        $thong_bao = thongBao::where('id', '>', 0)->paginate(5, ['*'], 'noti');;
+        $thong_bao = thongBao::where('id', '>', 0)->orderBy('created_at', 'DESC')->paginate(5, ['*'], 'noti');
         $list_new = taiLieu::with('monHocChinh')->paginate(12, ['*'], 'news');
         return view('user.thay-doi-mat-khau', compact(['list_new', 'list_ctdt', 'thong_bao']));
     }
@@ -146,7 +146,7 @@ class UserController extends Controller
 
     public function themYeuCauGiaHan(Request $request){
         $req = $request->all();
-        $noi_dung = "Tôi cần gia hạn mượn sách ".$req['noi_dung'].", mssv: ".$request->user()->ma_sv;
+        $noi_dung = "Tôi cần gia hạn mượn sách ".$req['noi_dung']."(mã: ".$req['ma_vach']."), mssv: ".$request->user()->ma_sv;
         $dataCreat = YeuCau::create([
             'tieu_de' => $req['tieu_de'],
             'noi_dung' => $noi_dung,
@@ -178,9 +178,9 @@ class UserController extends Controller
 
     }
 
-    public function getThongTinVote(Request $request){
-        $question_id = $request->input('question_id', 1);
-        $question = Question::find($question_id);
+    public function getThongTinVote(Request $request)
+    {
+        $question = Question::where('is_select', true)->first();
         if ($question == null)
             return json_encode([
                 'rc' => '-1',
@@ -188,26 +188,43 @@ class UserController extends Controller
             ]);
 
         $totalVote = DB::table('user_vote')->join('vote', 'user_vote.vote_id', '=', 'vote.id')
-            ->where('vote.question_id', '=', $question_id)->get()->count();
+            ->where('vote.question_id', '=', $question->id)->get()->count();
 
-        $votes = $question->votes->map(function ($item) use ($totalVote) {
+        $votes = $question->votes->map(function ($item) use ($totalVote)
+        {
             $voteCount = UserVote::where('vote_id', $item->id)->get()->count();
-            return [
-                'id' => $item->id,
-                'name' => $item->name,
-                'percent' => round(($voteCount / $totalVote)*100),
-                'count' => $voteCount
-            ];
+            if ($totalVote > 0)
+            {
+                return
+                [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'percent' => round(($voteCount / $totalVote)*100),
+                    'count' => $voteCount
+                ];
+            }
+            else
+            {
+                return
+                [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'percent' => 0,
+                    'count' => $voteCount
+                ];
+            }
         });
 
         $currentSelect = null;
         if ($request->user())
-            $currentSelect = $request->user()->votes()->where('question_id', $question_id)->first();
+            $currentSelect = $request->user()->votes()->where('question_id', $question->id)->first();
 
-        return [
+        return
+        [
             'rc' => '0',
             'rd' => 'Lấy dữ liệu thành công',
-            'question' => [
+            'question' =>
+            [
                 'id' => $question->id,
                 'content' => $question->content
             ],
@@ -216,27 +233,31 @@ class UserController extends Controller
             'user_select' => $currentSelect
         ];
     }
+
     // Chặn user k login được vote
     public function thucHienVote(Request $request){
         $question_id = $request->input('question_id', -1);
         $vote_id = $request->input('vote_id', -1);
         $question = Question::find($question_id);
         $vote = Vote::find($vote_id);
-        if ($question == null || $vote == null){
+        if ($question == null || $vote == null)
+        {
             return json_encode([
                 'rc' => '-1',
                 'rd' => 'Không tìm thấy question hoặc vote'
             ]);
         }
 
-        if ($vote->question_id != $question->id){
+        if ($vote->question_id != $question->id)
+        {
             return json_encode([
                 'rc' => '-1',
                 'rd' => 'Vote không thuộc câu hỏi này'
             ]);
         }
 
-        $voteArr = $question->votes->filter(function (Vote $myVote, int $key) use ($request) {
+        $voteArr = $question->votes->filter(function (Vote $myVote, int $key) use ($request)
+        {
             return $myVote->users->where('id', $request->user()->id);
         });
 
@@ -247,5 +268,22 @@ class UserController extends Controller
             'rc' => '0',
             'rd' => 'Chọn thành công',
         ]);
+    }
+
+    public function datTruocSach(Request $request)
+    {
+        $taiLieu = taiLieu::find($request->input('id'));
+        if (!$taiLieu)
+        {
+            $request->session()->flash('status', 'Có lỗi xảy ra');
+            return \Illuminate\Support\Facades\Redirect::back();
+        }
+        YeuCau::create([
+            'tieu_de' => 'Đặt trước sách '.$taiLieu->ten_tai_lieu,
+            'noi_dung' => '<p>Tôi cần đặt trước tài liệu '.$taiLieu->ten_tai_lieu. ' của tác giả '.$taiLieu->tac_gia. '</p><br><img class="img-thumbnail" width="200" height="200" src="'.url($taiLieu->hinh_anh).'"/>',
+            'user_id' => $request->user()->id
+        ]);
+        $request->session()->flash('status', 'Đặt trước tài liệu thành công');
+        return \Illuminate\Support\Facades\Redirect::back();
     }
 }

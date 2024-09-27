@@ -94,7 +94,7 @@
                 </div>
                 <span slot="footer" class="dialog-footer">
     <el-button @click="show_add = false">Đóng</el-button>
-    <el-button type="primary" @click="confirmAdd()">Thêm mới</el-button>
+    <el-button type="primary" @click="confirmAdd()" :disabled="this.loading.status">Thêm mới</el-button>
   </span>
             </el-dialog>
             <el-dialog
@@ -123,7 +123,7 @@
                 </div>
                 <span slot="footer" class="dialog-footer">
     <el-button @click="show_update = false">Đóng</el-button>
-    <el-button type="warning" @click="confirmUpdate()">Chỉnh sửa</el-button>
+    <el-button type="warning" @click="confirmUpdate()" :disabled="this.loading.status">Chỉnh sửa</el-button>
   </span>
             </el-dialog>
         </el-col>
@@ -279,6 +279,7 @@ export default {
         },
         confirmUpdate() {
             console.log('confirmUpdate')
+            this.loading.status = true;
             rest_api.post('/admin/sua-thong-bao', this.dataUpdate).then(
                 response => {
                     if (response && response.data.rc == 0) {
@@ -288,9 +289,11 @@ export default {
                     } else {
                         this.thongBao('error', response.data.rd)
                     }
-                    this.loading.status = false;
+
                 }
             ).catch((e) => {
+            }).finally(()=> {
+                this.loading.status = false;
             })
         },
         confirmAdd() {
@@ -298,6 +301,7 @@ export default {
                 this.thongBao('error', 'Vui lòng điền đầy đủ thông tin.')
                 return
             }
+            this.loading.status = true;
             rest_api.post('/admin/them-thong-bao', this.dataAdd).then(
                 response => {
                     if (response && response.data.rc == 0) {
@@ -307,9 +311,11 @@ export default {
                     } else {
                         this.thongBao('error', response.data.rd)
                     }
-                    this.loading.status = false;
+
                 }
             ).catch((e) => {
+            }).finally(()=> {
+                this.loading.status = false;
             })
         },
         showAdd() {
